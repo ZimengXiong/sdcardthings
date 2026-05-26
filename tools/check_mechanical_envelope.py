@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
 """Check the SD-slot insertion height envelope for the generated board.
 
-This is intentionally conservative: with the current 1.4 mm SD-card PCB
-assumption, all package bodies are treated as too tall to enter the Mac SD slot
-throat. Only the KiCad SD-card contact footprint is allowed in the inserted
-region.
+This check targets a thin 0.8 mm PCB so the current low-profile component stack
+can stay under normal full-size SD card thickness.
 """
 
 from __future__ import annotations
@@ -20,7 +18,7 @@ BOARD = ROOT / "hardware" / "sd-led-card.kicad_pcb"
 # KiCad's SD_Card_Device_16mm_SlotDepth footprint is placed at Y=50.0 mm.
 # Its inserted/contact region ends at local Y=-0.05, i.e. board Y=49.95 mm.
 INSERTED_REGION_MAX_Y_MM = 49.95
-BOARD_THICKNESS_MM = 1.4
+BOARD_THICKNESS_MM = 0.8
 FULL_SIZE_SD_NORMAL_THICKNESS_MM = 2.1
 
 PACKAGE_HEIGHTS_MM = {
@@ -50,10 +48,9 @@ def main() -> None:
             )
 
         if height > 0 and total_height > FULL_SIZE_SD_NORMAL_THICKNESS_MM:
-            print(
-                f"NOTE: {fp.GetReference()} {name} total stack "
-                f"{total_height:.2f} mm exceeds normal SD thickness; placement "
-                "must remain in the exposed region."
+            failures.append(
+                f"{fp.GetReference()} {name} total stack {total_height:.2f} mm "
+                f"exceeds normal SD thickness {FULL_SIZE_SD_NORMAL_THICKNESS_MM:.2f} mm."
             )
 
     if failures:
@@ -62,8 +59,9 @@ def main() -> None:
         raise SystemExit(1)
 
     print(
-        "Mechanical envelope check passed: component bodies are outside the "
-        "KiCad 16 mm inserted SD-slot region."
+        "Mechanical envelope check passed: known component stacks are under "
+        "normal SD thickness and package bodies are outside the KiCad 16 mm "
+        "inserted region."
     )
 
 

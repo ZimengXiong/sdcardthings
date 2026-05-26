@@ -14,6 +14,7 @@ KICAD = Path("/Users/xzm/Applications/KiCad/KiCad.app/Contents/SharedSupport")
 OUT = ROOT / "hardware" / "sd-led-card.kicad_pcb"
 PRO = ROOT / "hardware" / "sd-led-card.kicad_pro"
 SCH = ROOT / "hardware" / "sd-led-card.kicad_sch"
+BOARD_THICKNESS_MM = 0.8
 
 
 def mm(x: float, y: float) -> pcbnew.VECTOR2I:
@@ -189,6 +190,9 @@ def set_3d_model(fp, filename: str, scale=(1.0, 1.0, 1.0)) -> None:
 def main() -> None:
     board = pcbnew.BOARD()
     board.SetBoardUse(0)
+    settings = board.GetDesignSettings()
+    settings.SetBoardThickness(pcbnew.FromMM(BOARD_THICKNESS_MM))
+    board.SetDesignSettings(settings)
 
     # Full-size SD-card outline and contacts from KiCad's device-side SD card
     # template. Keeping this as the mechanical/contact source of truth avoids

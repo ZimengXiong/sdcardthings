@@ -23,29 +23,28 @@ Current generated PCB status:
 ## Mechanical Z Budget
 
 This design is based on KiCad's `SD_Card_Device_16mm_SlotDepth` footprint. That
-template models the inserted contact/mechanical region of a full-size SD card,
-and its own description calls for a 1.4 mm PCB thickness.
+template models the inserted contact/mechanical region of a full-size SD card.
+For the component stack to fit under normal full-size SD thickness, this design
+targets a **0.8 mm PCB** rather than the template's original 1.4 mm note.
 
 The current placement keeps component bodies outside that inserted 16 mm region:
 
 | Item | Side | Approx. package height | Mechanical note |
 | --- | --- | ---: | --- |
-| RP2350A QFN-60 | SD-contact side | 0.90 mm max | Too tall for an inserted SD throat on a 1.4 mm PCB. Must remain in the exposed region. |
-| EASV3015RGBA0 right-angle LED | SD-contact side | 1.10 mm max | Too tall for an inserted SD throat on a 1.4 mm PCB. Intended to sit at the exposed lip. |
-| 0402 capacitors | SD-contact side | about 0.5 mm | Also kept out of the inserted region. |
+| RP2350A QFN-60 | SD-contact side | 0.90 mm max | About 1.70 mm total on a 0.8 mm PCB. |
+| EASV3015RGBA0 right-angle LED | SD-contact side | 1.10 mm max | About 1.90 mm total on a 0.8 mm PCB. |
+| 0402 capacitors | SD-contact side | about 0.5 mm | About 1.30 mm total on a 0.8 mm PCB. |
 | CT1 capacitive touch electrode | SD-contact side | bare copper | No component height. |
 | Debug/test pads | SD-contact side | bare copper | Mechanically safe; no component height. |
 
-This is therefore **not** a guaranteed full-depth/flush-slot design. If the
-target MacBook slot swallows the component area, this board will not fit. The
-next physical validation step is measuring the actual insertion depth and slot
-clearance on the target MacBook, then keeping all non-copper component bodies
-outside that envelope.
+The 0.8 mm stack makes the current known package heights fit below the normal
+2.1 mm SD-card thickness. The remaining physical risk is contact reliability:
+a thinner PCB may need ENIG/hard-gold contact plating thickness control or a
+local contact-side buildup to land consistently on the MacBook slot springs.
 
 Run `tools/check_mechanical_envelope.py` after regenerating the board. It fails
-if any known package body is placed inside the inserted 16 mm SD-slot region,
-and it warns about packages whose board-plus-package stack exceeds normal SD
-card thickness.
+if any known package body is placed inside the inserted 16 mm SD-slot region or
+if any known board-plus-package stack exceeds normal SD card thickness.
 
 ## Candidate Pin Map
 
