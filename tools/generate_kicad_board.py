@@ -15,6 +15,9 @@ OUT = ROOT / "hardware" / "sd-led-card.kicad_pcb"
 PRO = ROOT / "hardware" / "sd-led-card.kicad_pro"
 SCH = ROOT / "hardware" / "sd-led-card.kicad_sch"
 BOARD_THICKNESS_MM = 0.8
+CONTACT_REGION_STIFFENER_MM = 0.6
+INSERTED_REGION_MIN_Y_MM = 34.05
+INSERTED_REGION_MAX_Y_MM = 49.95
 
 
 def mm(x: float, y: float) -> pcbnew.VECTOR2I:
@@ -112,6 +115,42 @@ def add_edge_segment(board: pcbnew.BOARD, start, end) -> None:
     shape.SetStart(mm(*start))
     shape.SetEnd(mm(*end))
     board.Add(shape)
+
+
+def add_user_segment(board: pcbnew.BOARD, start, end, layer: int = pcbnew.User_1, width: float = 0.08) -> None:
+    shape = pcbnew.PCB_SHAPE(board)
+    shape.SetShape(pcbnew.SHAPE_T_SEGMENT)
+    shape.SetLayer(layer)
+    shape.SetWidth(pcbnew.FromMM(width))
+    shape.SetStart(mm(*start))
+    shape.SetEnd(mm(*end))
+    board.Add(shape)
+
+
+def add_rect_outline(board: pcbnew.BOARD, layer: int, x0: float, y0: float, x1: float, y1: float) -> None:
+    add_user_segment(board, (x0, y0), (x1, y0), layer)
+    add_user_segment(board, (x1, y0), (x1, y1), layer)
+    add_user_segment(board, (x1, y1), (x0, y1), layer)
+    add_user_segment(board, (x0, y1), (x0, y0), layer)
+
+
+def add_layer_text(
+    board: pcbnew.BOARD,
+    text: str,
+    x: float,
+    y: float,
+    layer: int,
+    size: float = 0.55,
+    angle: float = 0,
+) -> None:
+    item = pcbnew.PCB_TEXT(board)
+    item.SetText(text)
+    item.SetLayer(layer)
+    item.SetPosition(mm(x, y))
+    item.SetTextAngleDegrees(angle)
+    item.SetTextSize(mm(size, size))
+    item.SetTextThickness(pcbnew.FromMM(0.08))
+    board.Add(item)
 
 
 def add_edge_arc(board: pcbnew.BOARD, start, mid, end) -> None:
@@ -216,6 +255,27 @@ def main() -> None:
     add_edge_segment(board, (39, 66.0), (61, 66.0))
     add_edge_arc(board, (61, 66.0), (61.707107, 65.707107), (62, 65.0))
     add_edge_segment(board, (62, 65.0), (62, 49.95))
+
+    # Manufacturing/mechanical note only: with a 0.8 mm PCB, add a 0.6 mm
+    # nonconductive stiffener on the non-contact side of the inserted region.
+    # That brings the spring-contact area to 1.4 mm while the component area
+    # stays below normal 2.1 mm full-size SD thickness.
+    add_rect_outline(
+        board,
+        pcbnew.User_1,
+        38.25,
+        INSERTED_REGION_MIN_Y_MM + 0.25,
+        61.75,
+        INSERTED_REGION_MAX_Y_MM - 0.25,
+    )
+    add_layer_text(
+        board,
+        f"MECH: F-side +{CONTACT_REGION_STIFFENER_MM:.1f}mm stiffener here",
+        39.1,
+        46.9,
+        pcbnew.User_1,
+        0.55,
+    )
 
     # RP2350A placeholder footprint. Final symbol/part selection still needs
     # schematic work, but this is the right package class for first placement.

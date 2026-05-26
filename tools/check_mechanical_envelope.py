@@ -19,6 +19,8 @@ BOARD = ROOT / "hardware" / "sd-led-card.kicad_pcb"
 # Its inserted/contact region ends at local Y=-0.05, i.e. board Y=49.95 mm.
 INSERTED_REGION_MAX_Y_MM = 49.95
 BOARD_THICKNESS_MM = 0.8
+CONTACT_REGION_STIFFENER_MM = 0.6
+MIN_INSERTED_REGION_THICKNESS_MM = 1.4
 FULL_SIZE_SD_NORMAL_THICKNESS_MM = 2.1
 
 PACKAGE_HEIGHTS_MM = {
@@ -31,6 +33,19 @@ PACKAGE_HEIGHTS_MM = {
 def main() -> None:
     board = pcbnew.LoadBoard(str(BOARD))
     failures: list[str] = []
+    inserted_region_thickness = BOARD_THICKNESS_MM + CONTACT_REGION_STIFFENER_MM
+
+    if inserted_region_thickness < MIN_INSERTED_REGION_THICKNESS_MM:
+        failures.append(
+            f"Inserted contact region is only {inserted_region_thickness:.2f} mm; "
+            f"target at least {MIN_INSERTED_REGION_THICKNESS_MM:.2f} mm for thin SD/MMC contact pressure."
+        )
+
+    if inserted_region_thickness > FULL_SIZE_SD_NORMAL_THICKNESS_MM:
+        failures.append(
+            f"Inserted contact region is {inserted_region_thickness:.2f} mm, "
+            f"over normal SD thickness {FULL_SIZE_SD_NORMAL_THICKNESS_MM:.2f} mm."
+        )
 
     for fp in board.GetFootprints():
         name = str(fp.GetFPID().GetLibItemName())
@@ -60,8 +75,9 @@ def main() -> None:
 
     print(
         "Mechanical envelope check passed: known component stacks are under "
-        "normal SD thickness and package bodies are outside the KiCad 16 mm "
-        "inserted region."
+        "normal SD thickness, package bodies are outside the KiCad 16 mm "
+        "inserted region, and the local contact-region stiffener reaches the "
+        "thin SD/MMC thickness target."
     )
 
 
