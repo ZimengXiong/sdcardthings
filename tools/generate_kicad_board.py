@@ -222,7 +222,7 @@ def main() -> None:
             f"D{i + 1}",
             "EASV3015 side RGB",
             x,
-            65.08,
+            65.20,
         )
         hide_ref_value(led)
         set_3d_model(
@@ -231,13 +231,6 @@ def main() -> None:
             (1.65, 1.65, 1.65),
         )
         board.Add(led)
-        add_filled_rect(
-            board,
-            pcbnew.F_SilkS,
-            (x - 1.35, 65.58),
-            (x + 1.35, 65.94),
-            0.01,
-        )
 
     cap = load_fp(
         "Capacitor_SMD",
