@@ -1,0 +1,22 @@
+.DS_Store
+
+# Python/local tooling
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+tools/.venv/
+
+# Build outputs
+build/
+cmake-build-*/
+*.uf2
+*.elf
+*.map
+*.bin
+*.hex
+
+# KiCad local/editor state
+*.kicad_prl
+*-backups/
+fp-info-cache

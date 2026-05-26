@@ -1,0 +1,12 @@
+(kicad_sch
+  (version 20250114)
+  (generator "sd-led-card-scaffold")
+  (paper "A4")
+  (title_block
+    (title "SD LED Card")
+    (rev "R0")
+    (comment 1 "Schematic capture pending; PCB scaffold uses KiCad SD-card-device footprint.")
+  )
+  (lib_symbols)
+  (symbol_instances)
+)
