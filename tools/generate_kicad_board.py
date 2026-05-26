@@ -48,11 +48,16 @@ def add_text(
     board.Add(item)
 
 
-def front_smd_layers() -> pcbnew.LSET:
+def smd_layers(side: str = "front") -> pcbnew.LSET:
     layers = pcbnew.LSET()
-    layers.AddLayer(pcbnew.F_Cu)
-    layers.AddLayer(pcbnew.F_Mask)
-    layers.AddLayer(pcbnew.F_Paste)
+    if side == "back":
+        layers.AddLayer(pcbnew.B_Cu)
+        layers.AddLayer(pcbnew.B_Mask)
+        layers.AddLayer(pcbnew.B_Paste)
+    else:
+        layers.AddLayer(pcbnew.F_Cu)
+        layers.AddLayer(pcbnew.F_Mask)
+        layers.AddLayer(pcbnew.F_Paste)
     return layers
 
 
@@ -65,8 +70,11 @@ def add_pad(
     w: float,
     h: float,
     shape=pcbnew.PAD_SHAPE_ROUNDRECT,
+    side: str = "front",
 ) -> None:
     fp = pcbnew.FOOTPRINT(board)
+    if side == "back":
+        fp.SetLayer(pcbnew.B_Cu)
     fp.SetReference(ref)
     fp.SetValue(ref)
     fp.Reference().SetVisible(False)
@@ -75,7 +83,7 @@ def add_pad(
     pad.SetNumber(number)
     pad.SetAttribute(pcbnew.PAD_ATTRIB_SMD)
     pad.SetShape(shape)
-    pad.SetLayerSet(front_smd_layers())
+    pad.SetLayerSet(smd_layers(side))
     pad.SetPosition(mm(x, y))
     pad.SetSize(mm(w, h))
     if shape == pcbnew.PAD_SHAPE_ROUNDRECT:
@@ -157,6 +165,17 @@ def hide_ref_value(fp) -> None:
     fp.Value().SetVisible(False)
 
 
+def add_back_footprint(board: pcbnew.BOARD, fp) -> None:
+    board.Add(fp)
+    fp.SetLayerAndFlip(pcbnew.B_Cu)
+
+
+def move_footprint_layers(fp, layers: set[int], target_layer: int) -> None:
+    for item in list(fp.GraphicalItems()):
+        if item.GetLayer() in layers:
+            item.SetLayer(target_layer)
+
+
 def set_3d_model(fp, filename: str, scale=(1.0, 1.0, 1.0)) -> None:
     fp.Models().clear()
     model = pcbnew.FP_3DMODEL()
@@ -171,27 +190,28 @@ def main() -> None:
     board = pcbnew.BOARD()
     board.SetBoardUse(0)
 
-    # Full-size SD-card outline, drawn directly so the visible face can carry
-    # both contacts and components like the reference render.
-    add_edge_segment(board, (38, 65.0), (38, 35))
-    add_edge_arc(board, (38, 35), (38.292893, 34.292893), (39, 34))
-    add_edge_segment(board, (39, 34), (57.792893, 34))
-    add_edge_arc(board, (57.792893, 34), (57.984235, 34.03806), (58.146447, 34.146447))
-    add_edge_segment(board, (58.146447, 34.146447), (61.853553, 37.853553))
-    add_edge_arc(board, (61.853553, 37.853553), (61.96194, 38.015766), (62, 38.207107))
-    add_edge_segment(board, (62, 38.207107), (62, 44))
-    add_edge_segment(board, (62, 44), (61.25, 44))
-    add_edge_segment(board, (61.25, 44), (61.25, 45.5))
-    add_edge_segment(board, (61.25, 45.5), (62, 45.5))
-    add_edge_segment(board, (62, 45.5), (62, 65.0))
+    # Full-size SD-card outline and contacts from KiCad's device-side SD card
+    # template. Keeping this as the mechanical/contact source of truth avoids
+    # hand-drawn pad geometry drifting away from the real card layout.
+    sd_card = load_fp(
+        "Connector_Card",
+        "SD_Card_Device_16mm_SlotDepth",
+        "J1",
+        "SD card edge contacts",
+        50.0,
+        50.0,
+    )
+    hide_ref_value(sd_card)
+    board.Add(sd_card)
+
+    # The KiCad template models the inserted 16 mm contact/mechanical region.
+    # Close it into our full visible card by extending the outline to the
+    # exposed LED lip.
+    add_edge_segment(board, (38, 49.95), (38, 65.0))
     add_edge_arc(board, (38, 65.0), (38.292893, 65.707107), (39, 66.0))
     add_edge_segment(board, (39, 66.0), (61, 66.0))
     add_edge_arc(board, (61, 66.0), (61.707107, 65.707107), (62, 65.0))
-
-    # Top-face SD contacts, deliberately visible for the concept render.
-    contact_x = [40.2, 42.6, 45.0, 47.4, 49.8, 52.2, 54.6, 57.0, 59.0]
-    for i, x in enumerate(contact_x, start=1):
-        add_pad(board, "J1", str(i), x, 36.4, 1.45 if i < 8 else 1.1, 3.6)
+    add_edge_segment(board, (62, 65.0), (62, 49.95))
 
     # RP2350A placeholder footprint. Final symbol/part selection still needs
     # schematic work, but this is the right package class for first placement.
@@ -208,14 +228,15 @@ def main() -> None:
         mcu,
         "${KICAD10_3DMODEL_DIR}/Package_DFN_QFN.3dshapes/QFN-56-1EP_7x7mm_P0.4mm_EP4x4mm.step",
     )
-    board.Add(mcu)
+    add_back_footprint(board, mcu)
 
     # Six right-angle RGB LEDs pushed to the exposed edge. The lens side faces
     # the card lip (+Y), so light exits the MacBook slot instead of shining up
     # into the inside of the slot.
-    led_x0 = 41.0
+    led_x0 = 40.25
+    led_pitch = 3.9
     for i in range(6):
-        x = led_x0 + i * 3.6
+        x = led_x0 + i * led_pitch
         led = load_fp(
             "LED_SMD",
             "LED_RGB_Everlight_EASV3015RGBA0_Horizontal",
@@ -230,7 +251,8 @@ def main() -> None:
             "${KICAD10_3DMODEL_DIR}/LED_SMD.3dshapes/LED_Kingbright_APA1606_1.6x0.6mm_Horizontal.step",
             (1.65, 1.65, 1.65),
         )
-        board.Add(led)
+        move_footprint_layers(led, {pcbnew.F_SilkS}, pcbnew.F_Fab)
+        add_back_footprint(board, led)
 
     cap = load_fp(
         "Capacitor_SMD",
@@ -238,10 +260,10 @@ def main() -> None:
         "C1",
         "100n",
         41.2,
-        40.75,
+        52.15,
     )
     hide_ref_value(cap)
-    board.Add(cap)
+    add_back_footprint(board, cap)
 
     cap2 = load_fp(
         "Capacitor_SMD",
@@ -249,32 +271,38 @@ def main() -> None:
         "C2",
         "1u",
         43.2,
-        40.75,
+        52.15,
     )
     hide_ref_value(cap2)
-    board.Add(cap2)
+    add_back_footprint(board, cap2)
 
-    # Pretty, restrained face text.
-    # Keep the front face minimal for now. Branding/text can come back after
-    # the mechanical and electrical placement is solid.
+    # Bare copper/ENIG capacitive touch electrode on the exposed card face.
+    # This adds no component height, which is critical for SD-slot clearance.
+    add_pad(
+        board,
+        "CT1",
+        "1",
+        46.1,
+        62.35,
+        8.6,
+        1.15,
+        pcbnew.PAD_SHAPE_ROUNDRECT,
+        "back",
+    )
 
-    # Visual routing: not final electrical routing, but laid out to show the
-    # intended organized topology before full schematic capture.
-    for idx, x in enumerate(contact_x):
-        add_track(board, (x, 38.4), (52.6 + idx * 0.55, 52.1), 0.12)
-    for i in range(6):
-        x = led_x0 + i * 3.6
-        add_track(board, (52.9 + i * 0.75, 59.8), (x, 63.6), 0.12)
+    # Keep the front face minimal. Electrical routing should come from the
+    # captured schematic/netlist; no decorative no-net copper belongs in a
+    # production DRC pass.
 
     # Debug/programming pads arranged as a simple robot face. Six can carry
     # SWD/debug signals; the two extra bottom pads can be NC or UART/test.
     dbg = [
-        (39.8, 40.0), (39.8, 41.3),
-        (44.6, 40.0), (44.6, 41.3),
-        (39.8, 42.7), (41.4, 42.7), (43.0, 42.7), (44.6, 42.7),
+        (39.8, 51.4), (39.8, 52.7),
+        (44.6, 51.4), (44.6, 52.7),
+        (39.8, 54.1), (41.4, 54.1), (43.0, 54.1), (44.6, 54.1),
     ]
     for i, (x, y) in enumerate(dbg, start=1):
-        add_pad(board, "DBG", str(i), x, y, 0.62, 0.62, pcbnew.PAD_SHAPE_CIRCLE)
+        add_pad(board, "DBG", str(i), x, y, 0.62, 0.62, pcbnew.PAD_SHAPE_CIRCLE, "back")
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
     pcbnew.SaveBoard(str(OUT), board)
