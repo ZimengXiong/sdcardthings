@@ -18,5 +18,8 @@ cmake-build-*/
 
 # KiCad local/editor state
 *.kicad_prl
+*.lck
 *-backups/
+*.history/
+.history/
 fp-info-cache

@@ -42,6 +42,11 @@ next physical validation step is measuring the actual insertion depth and slot
 clearance on the target MacBook, then keeping all non-copper component bodies
 outside that envelope.
 
+Run `tools/check_mechanical_envelope.py` after regenerating the board. It fails
+if any known package body is placed inside the inserted 16 mm SD-slot region,
+and it warns about packages whose board-plus-package stack exceeds normal SD
+card thickness.
+
 ## Candidate Pin Map
 
 This follows the upstream RP2350 SD emulator default:
