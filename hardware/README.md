@@ -14,11 +14,17 @@ Build a full-size SD-card-shaped board that is electrically conservative:
 Current generated PCB status:
 
 - KiCad DRC: clean, 0 violations / 0 unconnected items.
+- KiCad ERC: 0 errors. Remaining warnings are library-table/config warnings
+  from generated embedded `SDLED` symbols and an intentionally isolated
+  `BOOTSEL` debug pad.
+- The schematic now captures the intended electrical blocks: SD edge contacts,
+  RP2350A, chained addressable side LEDs, capacitive touch, decoupling, and
+  SWD/debug pads.
 - Components are placed on the same face as the SD contact pads.
 - Decorative no-net routing has been removed.
-- The remaining production gates are schematic capture, real net assignment,
-  final routed copper, exact manufacturer stackup, and confirmed component
-  heights for the target MacBook SD slot.
+- The remaining production gates are exact LED part/footprint selection, final
+  routed copper, exact manufacturer stackup, and confirmed component heights
+  for the target MacBook SD slot.
 
 ## Mechanical Z Budget
 

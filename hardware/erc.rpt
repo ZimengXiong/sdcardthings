@@ -1,0 +1,87 @@
+ERC report (2026-05-26T23:43:28, Encoding UTF8)
+Report includes: Errors, Warnings
+
+***** Sheet /
+[footprint_link_issues]: The current configuration does not include the footprint library 'Connector_Card'
+    ; warning
+    @(45.72 mm, 60.96 mm): Symbol J1 [SD_Edge_9Pin]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'SDLED'
+    ; warning
+    @(45.72 mm, 60.96 mm): Symbol J1 [SD_Edge_9Pin]
+[footprint_link_issues]: The current configuration does not include the footprint library 'SDLED'
+    ; warning
+    @(45.72 mm, 104.14 mm): Symbol DBG1 [DebugPads_8]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'SDLED'
+    ; warning
+    @(45.72 mm, 104.14 mm): Symbol DBG1 [DebugPads_8]
+[footprint_link_issues]: The current configuration does not include the footprint library 'SDLED'
+    ; warning
+    @(45.72 mm, 130.81 mm): Symbol CT1 [TouchPad]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'SDLED'
+    ; warning
+    @(45.72 mm, 130.81 mm): Symbol CT1 [TouchPad]
+[footprint_link_issues]: The current configuration does not include the footprint library 'LED_SMD'
+    ; warning
+    @(45.72 mm, 160.02 mm): Symbol D1 [Addressable_Side_RGB]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'SDLED'
+    ; warning
+    @(45.72 mm, 160.02 mm): Symbol D1 [Addressable_Side_RGB]
+[isolated_pin_label]: Label connected to only one pin
+    ; warning
+    @(60.96 mm, 113.03 mm): Label 'BOOTSEL'
+[footprint_link_issues]: The current configuration does not include the footprint library 'LED_SMD'
+    ; warning
+    @(69.85 mm, 160.02 mm): Symbol D2 [Addressable_Side_RGB]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'SDLED'
+    ; warning
+    @(69.85 mm, 160.02 mm): Symbol D2 [Addressable_Side_RGB]
+[footprint_link_issues]: The current configuration does not include the footprint library 'LED_SMD'
+    ; warning
+    @(93.98 mm, 160.02 mm): Symbol D3 [Addressable_Side_RGB]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'SDLED'
+    ; warning
+    @(93.98 mm, 160.02 mm): Symbol D3 [Addressable_Side_RGB]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(95.25 mm, 130.81 mm): Symbol C1 [Capacitor]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'SDLED'
+    ; warning
+    @(95.25 mm, 130.81 mm): Symbol C1 [Capacitor]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Capacitor_SMD'
+    ; warning
+    @(110.49 mm, 130.81 mm): Symbol C2 [Capacitor]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'SDLED'
+    ; warning
+    @(110.49 mm, 130.81 mm): Symbol C2 [Capacitor]
+[footprint_link_issues]: The current configuration does not include the footprint library 'LED_SMD'
+    ; warning
+    @(118.11 mm, 160.02 mm): Symbol D4 [Addressable_Side_RGB]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'SDLED'
+    ; warning
+    @(118.11 mm, 160.02 mm): Symbol D4 [Addressable_Side_RGB]
+[footprint_link_issues]: The current configuration does not include the footprint library 'Package_DFN_QFN'
+    ; warning
+    @(120.65 mm, 85.09 mm): Symbol U1 [RP2350A_QFN60_Min]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'SDLED'
+    ; warning
+    @(120.65 mm, 85.09 mm): Symbol U1 [RP2350A_QFN60_Min]
+[footprint_link_issues]: The current configuration does not include the footprint library 'LED_SMD'
+    ; warning
+    @(142.24 mm, 160.02 mm): Symbol D5 [Addressable_Side_RGB]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'SDLED'
+    ; warning
+    @(142.24 mm, 160.02 mm): Symbol D5 [Addressable_Side_RGB]
+[footprint_link_issues]: The current configuration does not include the footprint library 'LED_SMD'
+    ; warning
+    @(166.37 mm, 160.02 mm): Symbol D6 [Addressable_Side_RGB]
+[lib_symbol_issues]: The current configuration does not include the symbol library 'SDLED'
+    ; warning
+    @(166.37 mm, 160.02 mm): Symbol D6 [Addressable_Side_RGB]
+
+ ** ERC messages: 25  Errors 0  Warnings 25
+
+ ** Ignored checks:
+    - Global label only appears once in the schematic
+    - Four connection points are joined together
+    - SPICE model issue
+    - Assigned footprint doesn't match footprint filters

@@ -1,12 +1,3620 @@
 (kicad_sch
-  (version 20250114)
-  (generator "sd-led-card-scaffold")
-  (paper "A4")
-  (title_block
-    (title "SD LED Card")
-    (rev "R0")
-    (comment 1 "Schematic capture pending; PCB scaffold uses KiCad SD-card-device footprint.")
-  )
-  (lib_symbols)
-  (symbol_instances)
+	(version 20250114)
+	(generator "sd-led-card-scaffold")
+	(generator_version "1.0")
+	(uuid "7a27751f-9548-47ad-9f45-899b84ebad22")
+	(paper "A4")
+	(title_block
+		(title "SD LED Card")
+		(rev "R0")
+		(comment 1 "Functional schematic for SD emulator, RGB LEDs, capacitive touch, and debug pads.")
+	)
+	(lib_symbols
+		(symbol "SDLED:RP2350A_QFN60_Min"
+			(pin_names
+				(offset 0.762)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+		(property "Reference" "U"
+			(at 0.00 41.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+
+			)
+		)
+		(property "Value" "RP2350A"
+			(at 0.00 -41.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+
+			)
+		)
+		(property "Footprint" ""
+			(at 0.00 0.00 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+
+			(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 0.00 0.00 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+
+			(hide yes)
+			)
+		)
+
+			(symbol "RP2350A_QFN60_Min_1_1"
+				(rectangle
+					(start -10.16 38.73)
+					(end 10.16 -38.73)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin passive line
+					(at -15.24 24.13 0)
+					(length 5.08)
+					(name "GP0/SD_CMD"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -15.24 21.59 0)
+					(length 5.08)
+					(name "GP1/SD_CLK"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -15.24 19.05 0)
+					(length 5.08)
+					(name "GP2/SD_DAT0"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -15.24 16.51 0)
+					(length 5.08)
+					(name "GP3/SD_DAT1"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -15.24 13.97 0)
+					(length 5.08)
+					(name "GP4/SD_DAT2"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -15.24 11.43 0)
+					(length 5.08)
+					(name "GP5/SD_DAT3"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -15.24 8.89 0)
+					(length 5.08)
+					(name "GP6/LED_DIN"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -15.24 6.35 0)
+					(length 5.08)
+					(name "GP7/CAP_TOUCH"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -15.24 3.81 0)
+					(length 5.08)
+					(name "SWDIO"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "9"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -15.24 1.27 0)
+					(length 5.08)
+					(name "SWCLK"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "10"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -15.24 -1.27 0)
+					(length 5.08)
+					(name "RUN"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "11"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -15.24 -3.81 0)
+					(length 5.08)
+					(name "UART_TX"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "12"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -15.24 -6.35 0)
+					(length 5.08)
+					(name "UART_RX"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "13"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -15.24 -8.89 0)
+					(length 5.08)
+					(name "3V3"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "14"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -15.24 -11.43 0)
+					(length 5.08)
+					(name "GND"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "15"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 24.13 180)
+					(length 5.08)
+					(name "NC16"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "16"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 22.86 180)
+					(length 5.08)
+					(name "NC17"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "17"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 21.59 180)
+					(length 5.08)
+					(name "NC18"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "18"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 20.32 180)
+					(length 5.08)
+					(name "NC19"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "19"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 19.05 180)
+					(length 5.08)
+					(name "NC20"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "20"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 17.78 180)
+					(length 5.08)
+					(name "NC21"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "21"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 16.51 180)
+					(length 5.08)
+					(name "NC22"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "22"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 15.24 180)
+					(length 5.08)
+					(name "NC23"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "23"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 13.97 180)
+					(length 5.08)
+					(name "NC24"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "24"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 12.70 180)
+					(length 5.08)
+					(name "NC25"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "25"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 11.43 180)
+					(length 5.08)
+					(name "NC26"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "26"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 10.16 180)
+					(length 5.08)
+					(name "NC27"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "27"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 8.89 180)
+					(length 5.08)
+					(name "NC28"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "28"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 7.62 180)
+					(length 5.08)
+					(name "NC29"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "29"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 6.35 180)
+					(length 5.08)
+					(name "NC30"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "30"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 5.08 180)
+					(length 5.08)
+					(name "NC31"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "31"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 3.81 180)
+					(length 5.08)
+					(name "NC32"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "32"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 2.54 180)
+					(length 5.08)
+					(name "NC33"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "33"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 1.27 180)
+					(length 5.08)
+					(name "NC34"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "34"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 0.00 180)
+					(length 5.08)
+					(name "NC35"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "35"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -1.27 180)
+					(length 5.08)
+					(name "NC36"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "36"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -2.54 180)
+					(length 5.08)
+					(name "NC37"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "37"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -3.81 180)
+					(length 5.08)
+					(name "NC38"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "38"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -5.08 180)
+					(length 5.08)
+					(name "NC39"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "39"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -6.35 180)
+					(length 5.08)
+					(name "NC40"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "40"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -7.62 180)
+					(length 5.08)
+					(name "NC41"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "41"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -8.89 180)
+					(length 5.08)
+					(name "NC42"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "42"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -10.16 180)
+					(length 5.08)
+					(name "NC43"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "43"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -11.43 180)
+					(length 5.08)
+					(name "NC44"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "44"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -12.70 180)
+					(length 5.08)
+					(name "NC45"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "45"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -13.97 180)
+					(length 5.08)
+					(name "NC46"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "46"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -15.24 180)
+					(length 5.08)
+					(name "NC47"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "47"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -16.51 180)
+					(length 5.08)
+					(name "NC48"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "48"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -17.78 180)
+					(length 5.08)
+					(name "NC49"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "49"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -19.05 180)
+					(length 5.08)
+					(name "NC50"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "50"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -20.32 180)
+					(length 5.08)
+					(name "NC51"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "51"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -21.59 180)
+					(length 5.08)
+					(name "NC52"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "52"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -22.86 180)
+					(length 5.08)
+					(name "NC53"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "53"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -24.13 180)
+					(length 5.08)
+					(name "NC54"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "54"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -25.40 180)
+					(length 5.08)
+					(name "NC55"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "55"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -26.67 180)
+					(length 5.08)
+					(name "NC56"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "56"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -27.94 180)
+					(length 5.08)
+					(name "NC57"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "57"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -29.21 180)
+					(length 5.08)
+					(name "NC58"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "58"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -30.48 180)
+					(length 5.08)
+					(name "NC59"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "59"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -31.75 180)
+					(length 5.08)
+					(name "NC60"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "60"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "SDLED:SD_Edge_9Pin"
+			(pin_names
+				(offset 0.762)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+		(property "Reference" "J"
+			(at 0.00 8.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+
+			)
+		)
+		(property "Value" "SD edge contacts"
+			(at 0.00 -8.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+
+			)
+		)
+		(property "Footprint" ""
+			(at 0.00 0.00 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+
+			(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 0.00 0.00 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+
+			(hide yes)
+			)
+		)
+
+			(symbol "SD_Edge_9Pin_1_1"
+				(rectangle
+					(start -10.16 6.35)
+					(end 10.16 -6.35)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin passive line
+					(at 15.24 10.16 180)
+					(length 5.08)
+					(name "DAT2"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 7.62 180)
+					(length 5.08)
+					(name "DAT3/CD"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 5.08 180)
+					(length 5.08)
+					(name "CMD"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 2.54 180)
+					(length 5.08)
+					(name "VDD"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 0.00 180)
+					(length 5.08)
+					(name "CLK"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -2.54 180)
+					(length 5.08)
+					(name "VSS"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -5.08 180)
+					(length 5.08)
+					(name "DAT0"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -7.62 180)
+					(length 5.08)
+					(name "DAT1"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -10.16 180)
+					(length 5.08)
+					(name "VSS2"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "9"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "SDLED:Addressable_Side_RGB"
+			(pin_names
+				(offset 0.762)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+		(property "Reference" "D"
+			(at 0.00 6.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+
+			)
+		)
+		(property "Value" "Side RGB addressable LED"
+			(at 0.00 -6.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+
+			)
+		)
+		(property "Footprint" ""
+			(at 0.00 0.00 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+
+			(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 0.00 0.00 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+
+			(hide yes)
+			)
+		)
+
+			(symbol "Addressable_Side_RGB_1_1"
+				(rectangle
+					(start -10.16 4.00)
+					(end 10.16 -4.00)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin passive line
+					(at -15.24 3.81 0)
+					(length 5.08)
+					(name "VDD"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 1.27 180)
+					(length 5.08)
+					(name "DOUT"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -15.24 -1.27 0)
+					(length 5.08)
+					(name "GND"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -3.81 180)
+					(length 5.08)
+					(name "DIN"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "SDLED:Capacitor"
+			(pin_names
+				(offset 0.762)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+		(property "Reference" "C"
+			(at 0.00 6.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+
+			)
+		)
+		(property "Value" "Capacitor"
+			(at 0.00 -6.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+
+			)
+		)
+		(property "Footprint" ""
+			(at 0.00 0.00 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+
+			(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 0.00 0.00 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+
+			(hide yes)
+			)
+		)
+
+			(symbol "Capacitor_1_1"
+				(rectangle
+					(start -10.16 4.00)
+					(end 10.16 -4.00)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin passive line
+					(at -15.24 1.27 0)
+					(length 5.08)
+					(name "1"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -15.24 -1.27 0)
+					(length 5.08)
+					(name "2"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "SDLED:DebugPads_8"
+			(pin_names
+				(offset 0.762)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+		(property "Reference" "J"
+			(at 0.00 8.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+
+			)
+		)
+		(property "Value" "SWD/debug pads"
+			(at 0.00 -8.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+
+			)
+		)
+		(property "Footprint" ""
+			(at 0.00 0.00 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+
+			(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 0.00 0.00 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+
+			(hide yes)
+			)
+		)
+
+			(symbol "DebugPads_8_1_1"
+				(rectangle
+					(start -10.16 5.71)
+					(end 10.16 -5.71)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin passive line
+					(at 15.24 8.89 180)
+					(length 5.08)
+					(name "SWDIO"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 6.35 180)
+					(length 5.08)
+					(name "SWCLK"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 3.81 180)
+					(length 5.08)
+					(name "RUN"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 1.27 180)
+					(length 5.08)
+					(name "3V3"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -1.27 180)
+					(length 5.08)
+					(name "GND"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -3.81 180)
+					(length 5.08)
+					(name "UART_TX"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -6.35 180)
+					(length 5.08)
+					(name "UART_RX"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 15.24 -8.89 180)
+					(length 5.08)
+					(name "BOOTSEL"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "SDLED:TouchPad"
+			(pin_names
+				(offset 0.762)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+		(property "Reference" "TP"
+			(at 0.00 6.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+
+			)
+		)
+		(property "Value" "Cap touch electrode"
+			(at 0.00 -6.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+
+			)
+		)
+		(property "Footprint" ""
+			(at 0.00 0.00 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+
+			(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 0.00 0.00 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+
+			(hide yes)
+			)
+		)
+
+			(symbol "TouchPad_1_1"
+				(rectangle
+					(start -10.16 4.00)
+					(end 10.16 -4.00)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin passive line
+					(at 15.24 0.00 180)
+					(length 5.08)
+					(name "TOUCH"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.0 1.0)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	)
+	(label "SD_CMD"
+		(at 105.41 60.96 0)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify left bottom)
+		)
+		(uuid "203ac2c2-7661-597b-bee9-56129dc3794a")
+	)
+	(label "SD_CLK"
+		(at 105.41 63.50 0)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify left bottom)
+		)
+		(uuid "13ccd9e3-2862-5984-a873-b25ae2366509")
+	)
+	(label "SD_DAT0"
+		(at 105.41 66.04 0)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify left bottom)
+		)
+		(uuid "01926c82-35e7-5dd8-851e-8569f71f38dc")
+	)
+	(label "SD_DAT1"
+		(at 105.41 68.58 0)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify left bottom)
+		)
+		(uuid "a8b19042-2728-5b6e-b5a3-b293f8e8aedc")
+	)
+	(label "SD_DAT2"
+		(at 105.41 71.12 0)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify left bottom)
+		)
+		(uuid "17c8ab87-2d3a-50a6-9ab7-b62428a26d21")
+	)
+	(label "SD_DAT3"
+		(at 105.41 73.66 0)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify left bottom)
+		)
+		(uuid "ee525537-188c-5cf4-b6ef-d42c1e1464ea")
+	)
+	(label "LED_D0"
+		(at 105.41 76.20 0)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify left bottom)
+		)
+		(uuid "158d9df0-c54a-51b4-a5b1-0c499ae3121e")
+	)
+	(label "CAP_TOUCH"
+		(at 105.41 78.74 0)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify left bottom)
+		)
+		(uuid "14aa9f42-3405-51e7-b99c-943cbf7d9aee")
+	)
+	(label "SWDIO"
+		(at 105.41 81.28 0)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify left bottom)
+		)
+		(uuid "e3bca16d-9a50-5342-9b16-7e3f2fb13924")
+	)
+	(label "SWCLK"
+		(at 105.41 83.82 0)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify left bottom)
+		)
+		(uuid "de2bd06a-bc3d-5817-8905-6fc9dbe55115")
+	)
+	(label "RUN"
+		(at 105.41 86.36 0)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify left bottom)
+		)
+		(uuid "606f13fd-4cb7-5582-aa0e-048f42d22eeb")
+	)
+	(label "UART_TX"
+		(at 105.41 88.90 0)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify left bottom)
+		)
+		(uuid "18722777-31ea-50db-9213-797cabca06b0")
+	)
+	(label "UART_RX"
+		(at 105.41 91.44 0)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify left bottom)
+		)
+		(uuid "c11d2b55-314a-5d67-bf2c-fbfc35e92e9a")
+	)
+	(label "+3V3"
+		(at 105.41 93.98 0)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify left bottom)
+		)
+		(uuid "af9fc2cb-7d08-5405-8cf3-85c53f9ce8de")
+	)
+	(label "GND"
+		(at 105.41 96.52 0)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify left bottom)
+		)
+		(uuid "99a123e8-9f0c-5546-8e08-fa7692b57a9b")
+	)
+	(no_connect
+		(at 135.89 60.96)
+		(uuid "0a51504d-7a6c-5ad2-8b66-97a82e383b62")
+	)
+	(no_connect
+		(at 135.89 62.23)
+		(uuid "3c2d9438-7ea0-5597-96db-5b341750695d")
+	)
+	(no_connect
+		(at 135.89 63.50)
+		(uuid "52c86ce2-1d6c-5312-a2e7-f1cb64f71177")
+	)
+	(no_connect
+		(at 135.89 64.77)
+		(uuid "37597b7b-d32d-5ad4-85f3-26d8d60d19f5")
+	)
+	(no_connect
+		(at 135.89 66.04)
+		(uuid "b850b15c-18cd-5def-a2e0-2c62b2bbff12")
+	)
+	(no_connect
+		(at 135.89 67.31)
+		(uuid "83ed9680-dc0b-5b79-9031-f46bdf4cd07d")
+	)
+	(no_connect
+		(at 135.89 68.58)
+		(uuid "df14b284-d842-55f4-9867-955307bd5162")
+	)
+	(no_connect
+		(at 135.89 69.85)
+		(uuid "7e986057-da20-5d22-93cb-53f3005817c7")
+	)
+	(no_connect
+		(at 135.89 71.12)
+		(uuid "473d212d-28f6-5f9a-9357-74d597a1d4dc")
+	)
+	(no_connect
+		(at 135.89 72.39)
+		(uuid "f6701a92-bdff-5bdf-a458-81cd63df7439")
+	)
+	(no_connect
+		(at 135.89 73.66)
+		(uuid "c2f6afed-d923-5bc7-8f45-4c6e5bf85aa2")
+	)
+	(no_connect
+		(at 135.89 74.93)
+		(uuid "0c50517a-f279-57af-a7b7-5930c0c0933b")
+	)
+	(no_connect
+		(at 135.89 76.20)
+		(uuid "76477509-2342-533e-b67c-9242490e65fc")
+	)
+	(no_connect
+		(at 135.89 77.47)
+		(uuid "73e9bec2-db0c-5cd4-aeac-ca698ca28099")
+	)
+	(no_connect
+		(at 135.89 78.74)
+		(uuid "345bf86f-70a3-5b10-910f-c19737cb922d")
+	)
+	(no_connect
+		(at 135.89 80.01)
+		(uuid "c3697187-4f09-5227-99b7-a50929b84924")
+	)
+	(no_connect
+		(at 135.89 81.28)
+		(uuid "a5eb074a-85e8-5c8e-afc5-911982adb7ac")
+	)
+	(no_connect
+		(at 135.89 82.55)
+		(uuid "7322f683-43dd-528a-9710-2a6d78f064fe")
+	)
+	(no_connect
+		(at 135.89 83.82)
+		(uuid "f0872b22-e798-5a67-aca2-d5c50098877f")
+	)
+	(no_connect
+		(at 135.89 85.09)
+		(uuid "29166a3a-54a5-5140-98bc-5c7386adc3d0")
+	)
+	(no_connect
+		(at 135.89 86.36)
+		(uuid "cc1423d1-f7d2-590e-8895-98b6e0a93a62")
+	)
+	(no_connect
+		(at 135.89 87.63)
+		(uuid "ea2e0694-aaa2-5e44-b801-68691706345e")
+	)
+	(no_connect
+		(at 135.89 88.90)
+		(uuid "a1cd0691-8eea-5855-b408-662edc868bd2")
+	)
+	(no_connect
+		(at 135.89 90.17)
+		(uuid "d608da65-ec04-5160-bb05-2153a5605ecf")
+	)
+	(no_connect
+		(at 135.89 91.44)
+		(uuid "c1338d0d-8405-5af5-9639-1ca69d28b1db")
+	)
+	(no_connect
+		(at 135.89 92.71)
+		(uuid "3c28d52a-3b21-5c37-8984-4d4c0a829cc5")
+	)
+	(no_connect
+		(at 135.89 93.98)
+		(uuid "6a30e869-0610-56ec-9458-de3b17991a39")
+	)
+	(no_connect
+		(at 135.89 95.25)
+		(uuid "d7b5139b-03d1-5e01-8a6c-e1c04d2c2672")
+	)
+	(no_connect
+		(at 135.89 96.52)
+		(uuid "125a819d-ffbf-5d7c-8d04-4ea7c51ab4c4")
+	)
+	(no_connect
+		(at 135.89 97.79)
+		(uuid "7f3796d3-ee08-5f32-8d6d-4fd693040941")
+	)
+	(no_connect
+		(at 135.89 99.06)
+		(uuid "7ec318e0-25cf-542a-acad-d45d79d6f693")
+	)
+	(no_connect
+		(at 135.89 100.33)
+		(uuid "72bba46c-8db6-548e-9309-ca1d7730f0a3")
+	)
+	(no_connect
+		(at 135.89 101.60)
+		(uuid "f753c630-0449-5d61-b87a-29f2f8a91df5")
+	)
+	(no_connect
+		(at 135.89 102.87)
+		(uuid "0011bac3-34ea-5e01-9c02-a95696b947e3")
+	)
+	(no_connect
+		(at 135.89 104.14)
+		(uuid "0c14f1c2-be29-56f5-991d-0e7cbfe62865")
+	)
+	(no_connect
+		(at 135.89 105.41)
+		(uuid "27bd9bb0-36c2-5336-bfff-660ff3e32c74")
+	)
+	(no_connect
+		(at 135.89 106.68)
+		(uuid "b70641a0-1211-5889-950c-bbd31a5d7ffc")
+	)
+	(no_connect
+		(at 135.89 107.95)
+		(uuid "6a4d01ab-18ff-5fef-b9fc-99f4578991dc")
+	)
+	(no_connect
+		(at 135.89 109.22)
+		(uuid "3a5b0c2d-069d-5480-90df-5b1639824c09")
+	)
+	(no_connect
+		(at 135.89 110.49)
+		(uuid "76153531-fcba-5ef6-a3b8-f7ce8f93199c")
+	)
+	(no_connect
+		(at 135.89 111.76)
+		(uuid "931fbfda-89d2-57dc-b729-58a16f02d660")
+	)
+	(no_connect
+		(at 135.89 113.03)
+		(uuid "410f5012-6c59-5904-9d38-140d2b91a279")
+	)
+	(no_connect
+		(at 135.89 114.30)
+		(uuid "e2457114-1042-547c-b81d-b7a5c9a7d7d4")
+	)
+	(no_connect
+		(at 135.89 115.57)
+		(uuid "810268f4-003f-51c2-9f49-22b43cd911e0")
+	)
+	(no_connect
+		(at 135.89 116.84)
+		(uuid "bbd3db8c-8085-53f1-80d0-b56ed198e02f")
+	)
+	(label "SD_DAT2"
+		(at 60.96 50.80 180)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify right bottom)
+		)
+		(uuid "2d11dbea-db28-5120-bb13-516eb79bc4b3")
+	)
+	(label "SD_DAT3"
+		(at 60.96 53.34 180)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify right bottom)
+		)
+		(uuid "42a43636-7eca-5da5-a0bc-dcecee20bf46")
+	)
+	(label "SD_CMD"
+		(at 60.96 55.88 180)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify right bottom)
+		)
+		(uuid "56300a67-4f4a-5fa4-9b37-b3e19c0c7c83")
+	)
+	(label "+3V3"
+		(at 60.96 58.42 180)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify right bottom)
+		)
+		(uuid "311108c7-ddef-59f8-acf1-0024935e0282")
+	)
+	(label "SD_CLK"
+		(at 60.96 60.96 180)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify right bottom)
+		)
+		(uuid "63379cb5-a270-5214-930e-5443be697856")
+	)
+	(label "GND"
+		(at 60.96 63.50 180)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify right bottom)
+		)
+		(uuid "bce20759-220c-5422-8463-198a364c1da7")
+	)
+	(label "SD_DAT0"
+		(at 60.96 66.04 180)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify right bottom)
+		)
+		(uuid "bbad0a35-52ac-5efc-a352-d42d89bdd91a")
+	)
+	(label "SD_DAT1"
+		(at 60.96 68.58 180)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify right bottom)
+		)
+		(uuid "8a864917-e596-5003-b8fd-b213810843bb")
+	)
+	(label "GND"
+		(at 60.96 71.12 180)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify right bottom)
+		)
+		(uuid "fed21119-c08c-515e-b757-9e2e9faf300e")
+	)
+	(label "SWDIO"
+		(at 60.96 95.25 180)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify right bottom)
+		)
+		(uuid "3c4cdfa5-6729-5129-b284-5d6c898e6443")
+	)
+	(label "SWCLK"
+		(at 60.96 97.79 180)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify right bottom)
+		)
+		(uuid "8d70c260-63e6-5b80-9443-4acb03e921ea")
+	)
+	(label "RUN"
+		(at 60.96 100.33 180)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify right bottom)
+		)
+		(uuid "5bc8201f-b37b-5f20-9a3e-7ec631518ba5")
+	)
+	(label "+3V3"
+		(at 60.96 102.87 180)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify right bottom)
+		)
+		(uuid "9c4c3878-8e9c-5c28-be42-6bb1a6ed15e3")
+	)
+	(label "GND"
+		(at 60.96 105.41 180)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify right bottom)
+		)
+		(uuid "28a1b0f5-4f94-5519-ba7c-0bc9fc5b0b51")
+	)
+	(label "UART_TX"
+		(at 60.96 107.95 180)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify right bottom)
+		)
+		(uuid "d9652103-ac7f-5670-9388-59ff7ea48205")
+	)
+	(label "UART_RX"
+		(at 60.96 110.49 180)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify right bottom)
+		)
+		(uuid "1ef14ff4-0e7d-5703-b97b-f4a151fa7ea1")
+	)
+	(label "BOOTSEL"
+		(at 60.96 113.03 180)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify right bottom)
+		)
+		(uuid "4ab410d1-a6ab-58c9-95bb-8743a881c7f3")
+	)
+	(label "CAP_TOUCH"
+		(at 60.96 130.81 180)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify right bottom)
+		)
+		(uuid "d0d41b72-9502-5dc4-a581-1a92dc13315c")
+	)
+	(label "+3V3"
+		(at 80.01 129.54 0)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify left bottom)
+		)
+		(uuid "f2e43bbe-2800-5170-bebe-2c60aa39ad04")
+	)
+	(label "GND"
+		(at 80.01 132.08 0)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify left bottom)
+		)
+		(uuid "db425dee-24a9-55ba-b7ac-075b5bb857e5")
+	)
+	(label "+3V3"
+		(at 95.25 129.54 0)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify left bottom)
+		)
+		(uuid "13e37f69-db08-5e21-ac7c-ade0387ea251")
+	)
+	(label "GND"
+		(at 95.25 132.08 0)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify left bottom)
+		)
+		(uuid "41f6e282-ab8d-5d14-a428-3a43ef2c45cb")
+	)
+	(label "+3V3"
+		(at 30.48 156.21 0)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify left bottom)
+		)
+		(uuid "e7d85218-f940-5147-82a6-8e75f4313af9")
+	)
+	(label "LED_D1"
+		(at 60.96 158.75 180)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify right bottom)
+		)
+		(uuid "fb10b63c-7f89-530d-bbce-e750e118f98b")
+	)
+	(label "GND"
+		(at 30.48 161.29 0)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify left bottom)
+		)
+		(uuid "3e946cd7-3453-5726-ad21-bae18bc4faef")
+	)
+	(label "LED_D0"
+		(at 60.96 163.83 180)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify right bottom)
+		)
+		(uuid "5f1225d8-451d-5c3b-8c72-b59d6b82eef2")
+	)
+	(label "+3V3"
+		(at 54.61 156.21 0)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify left bottom)
+		)
+		(uuid "72550445-cb0f-583b-b8ed-e21767ea4008")
+	)
+	(label "LED_D2"
+		(at 85.09 158.75 180)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify right bottom)
+		)
+		(uuid "1dd2f4cc-5577-5698-9735-a0e48e571002")
+	)
+	(label "GND"
+		(at 54.61 161.29 0)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify left bottom)
+		)
+		(uuid "2456d6cc-68c2-5983-b99b-60c765ec8c7b")
+	)
+	(label "LED_D1"
+		(at 85.09 163.83 180)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify right bottom)
+		)
+		(uuid "3ec7e2a6-b585-5803-a7a9-dab663a16a3f")
+	)
+	(label "+3V3"
+		(at 78.74 156.21 0)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify left bottom)
+		)
+		(uuid "1997efa2-9d1b-5158-b4a3-b86a1b3d26e4")
+	)
+	(label "LED_D3"
+		(at 109.22 158.75 180)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify right bottom)
+		)
+		(uuid "41f33ddf-d6cd-5d50-9150-b2f484a3babb")
+	)
+	(label "GND"
+		(at 78.74 161.29 0)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify left bottom)
+		)
+		(uuid "deb396b9-7600-5e4e-a9b8-bc3095a21d1a")
+	)
+	(label "LED_D2"
+		(at 109.22 163.83 180)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify right bottom)
+		)
+		(uuid "27308dd1-2cbd-5228-bea3-70193c98a07d")
+	)
+	(label "+3V3"
+		(at 102.87 156.21 0)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify left bottom)
+		)
+		(uuid "66746868-54e5-5ece-a439-094d97bd3303")
+	)
+	(label "LED_D4"
+		(at 133.35 158.75 180)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify right bottom)
+		)
+		(uuid "c0befd3a-fd31-5bb1-bec5-f5c854f16477")
+	)
+	(label "GND"
+		(at 102.87 161.29 0)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify left bottom)
+		)
+		(uuid "66497c88-5478-5622-beac-d3956db9f63c")
+	)
+	(label "LED_D3"
+		(at 133.35 163.83 180)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify right bottom)
+		)
+		(uuid "a54e23bd-8df9-5b8c-ab72-4090713af668")
+	)
+	(label "+3V3"
+		(at 127.00 156.21 0)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify left bottom)
+		)
+		(uuid "9e42ab16-dbc2-5d34-a0e8-57051ec328d9")
+	)
+	(label "LED_D5"
+		(at 157.48 158.75 180)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify right bottom)
+		)
+		(uuid "f20be683-3aef-5d42-af63-3823522bcccd")
+	)
+	(label "GND"
+		(at 127.00 161.29 0)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify left bottom)
+		)
+		(uuid "88bf0a0c-355c-5a55-85f5-3599e16bccbc")
+	)
+	(label "LED_D4"
+		(at 157.48 163.83 180)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify right bottom)
+		)
+		(uuid "ba3fe2ac-7e8f-57e5-9d30-3cc6ee0588ca")
+	)
+	(label "+3V3"
+		(at 151.13 156.21 0)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify left bottom)
+		)
+		(uuid "72d38180-c11d-5688-a78f-3d9c52b77148")
+	)
+	(label "GND"
+		(at 151.13 161.29 0)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify left bottom)
+		)
+		(uuid "b817fe5f-5ab1-5ad4-9b3f-f59340e60118")
+	)
+	(label "LED_D5"
+		(at 181.61 163.83 180)
+		(effects
+			(font
+				(size 1.0 1.0)
+			)
+			(justify right bottom)
+		)
+		(uuid "d4c04097-44a4-50ea-a812-a396d4782767")
+	)
+	(no_connect
+		(at 181.61 158.75)
+		(uuid "df82f2cf-926b-5009-8906-ecb4344dd85b")
+	)
+	(symbol
+		(lib_id "SDLED:RP2350A_QFN60_Min")
+		(at 120.65 85.09 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6c4a18cc-a234-5e23-90cd-3cddef0f386a")
+		(property "Reference" "U1"
+			(at 120.65 77.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "RP2350A"
+			(at 120.65 93.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Package_DFN_QFN:QFN-60-1EP_7x7mm_P0.4mm_EP3.4x3.4mm"
+			(at 120.65 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 120.65 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "bafccae1-8c51-528f-86b8-1453aee8c504")
+		)
+		(pin "2"
+			(uuid "8f656f68-6a57-5b9a-94da-36fef50810fb")
+		)
+		(pin "3"
+			(uuid "1d527610-5930-57e0-a4ff-ce6ce1919be1")
+		)
+		(pin "4"
+			(uuid "85eb984d-837d-52e4-89fe-0d9a5a322548")
+		)
+		(pin "5"
+			(uuid "f3a21f64-725f-5978-8176-4c36cc35e94a")
+		)
+		(pin "6"
+			(uuid "a737888b-f1b7-5656-80bb-bcebaa4c9470")
+		)
+		(pin "7"
+			(uuid "be0be814-4911-5ebc-b9cc-a36253d9ec2a")
+		)
+		(pin "8"
+			(uuid "e072cc57-9869-5a9e-8fcf-57d4deed6f6c")
+		)
+		(pin "9"
+			(uuid "cd330873-6736-58e6-bf98-3786557b105f")
+		)
+		(pin "10"
+			(uuid "53558a97-191e-5880-aeac-ae5032016c40")
+		)
+		(pin "11"
+			(uuid "5824963d-519e-5297-9b48-4ed7d95ff097")
+		)
+		(pin "12"
+			(uuid "2448a448-9320-5af0-b377-9f523f2e93aa")
+		)
+		(pin "13"
+			(uuid "598289b9-cf93-5690-ac84-335a21b775eb")
+		)
+		(pin "14"
+			(uuid "e4af6f41-fef9-5e56-827a-bedc5117473a")
+		)
+		(pin "15"
+			(uuid "71d8f71f-a63c-5471-8f76-f7776bcbc808")
+		)
+		(pin "16"
+			(uuid "b1d0f5e9-16c9-5df9-9768-3262425713d2")
+		)
+		(pin "17"
+			(uuid "7d6fdcd7-58d7-5769-8446-a973596e722c")
+		)
+		(pin "18"
+			(uuid "3ed84f56-503f-5dcd-bd37-9896ce84dd1d")
+		)
+		(pin "19"
+			(uuid "e0feb6a0-1e87-56cf-89e4-2abf34725e5f")
+		)
+		(pin "20"
+			(uuid "2529e5fb-25c2-572f-b789-178c59a390d4")
+		)
+		(pin "21"
+			(uuid "9e6583af-d612-5180-aa2e-6ca23d942ab4")
+		)
+		(pin "22"
+			(uuid "6c2fc93e-278c-50a3-8121-aa5e71d098fc")
+		)
+		(pin "23"
+			(uuid "3fa900ea-5dd8-5584-946a-fd36075c19b8")
+		)
+		(pin "24"
+			(uuid "7beaadcf-dc38-5369-806f-157dca09d32d")
+		)
+		(pin "25"
+			(uuid "439cdb15-b3e8-5f6b-bead-9994f6f97b91")
+		)
+		(pin "26"
+			(uuid "efa649cd-9b37-5516-bcc2-b4196e624c74")
+		)
+		(pin "27"
+			(uuid "dc2d8b5b-4752-5662-a3df-84b091b311cb")
+		)
+		(pin "28"
+			(uuid "ae1129e5-0257-5c09-b914-fa507f69eab4")
+		)
+		(pin "29"
+			(uuid "4fcccc35-14d0-5e2a-ad32-ebb1210ba9aa")
+		)
+		(pin "30"
+			(uuid "4589e757-a60b-5717-a76f-f520b79168c7")
+		)
+		(pin "31"
+			(uuid "18e39fef-a2e7-530f-9dc6-829ac817cd59")
+		)
+		(pin "32"
+			(uuid "47ba7fa5-439c-59ea-86a2-1df45b849a60")
+		)
+		(pin "33"
+			(uuid "37d821c5-b957-5d44-9868-8d7bc8e7424f")
+		)
+		(pin "34"
+			(uuid "46d13b6c-8f32-5f7a-bd84-90b964687acc")
+		)
+		(pin "35"
+			(uuid "f8fc68b3-78aa-530a-9d69-fffac078610e")
+		)
+		(pin "36"
+			(uuid "bbf05116-5dad-5dc7-bdff-d0cc9e094fbd")
+		)
+		(pin "37"
+			(uuid "1bd1c482-e556-5eec-a9c8-7207549c060d")
+		)
+		(pin "38"
+			(uuid "88308a1b-4b09-5dc2-a8d6-58708c01ae66")
+		)
+		(pin "39"
+			(uuid "1d2d37f1-630e-51cb-9a17-1e3d383d5632")
+		)
+		(pin "40"
+			(uuid "b0e89dde-e8a3-5dda-9fcd-22b2704c4755")
+		)
+		(pin "41"
+			(uuid "46aa3086-9a23-5032-a8b1-b782a5ca4619")
+		)
+		(pin "42"
+			(uuid "7317ce3d-2094-51d6-9f12-78bfb2bbcfd6")
+		)
+		(pin "43"
+			(uuid "871ae95c-2d9d-5395-b70e-a6443f6b4b69")
+		)
+		(pin "44"
+			(uuid "071280c7-47a5-5e0a-8e59-8ff9e11a1d2a")
+		)
+		(pin "45"
+			(uuid "cdee3e01-51b2-5b9f-9b4a-32e83ac0cddb")
+		)
+		(pin "46"
+			(uuid "013b1521-0df0-5e33-a9e5-f4f1b509e4b8")
+		)
+		(pin "47"
+			(uuid "59a08f41-d255-5524-a3d7-1c6aa631f821")
+		)
+		(pin "48"
+			(uuid "aa0bfebf-ae46-5b01-8e33-28cf418c722d")
+		)
+		(pin "49"
+			(uuid "9b7bcd4c-2a79-59bb-9f67-8a5ccfd89c8a")
+		)
+		(pin "50"
+			(uuid "80b0d97e-70e8-5076-9bbb-9847a37c6bb3")
+		)
+		(pin "51"
+			(uuid "9880b725-ab49-5ad0-85fd-bb24e23068c4")
+		)
+		(pin "52"
+			(uuid "81458b4b-5d3c-5c08-b8e5-bae0551306c4")
+		)
+		(pin "53"
+			(uuid "f5d995bf-202b-593d-ab39-43e5dc91b0fd")
+		)
+		(pin "54"
+			(uuid "f44bf23a-9c35-5ca3-906e-696336d6dad8")
+		)
+		(pin "55"
+			(uuid "2153e666-8ff4-5012-bde3-4deb9b0a19a1")
+		)
+		(pin "56"
+			(uuid "338fa33f-9876-5406-a4bc-617cf6e5053f")
+		)
+		(pin "57"
+			(uuid "3586ecc5-e921-51d0-865f-e45bd6623fe3")
+		)
+		(pin "58"
+			(uuid "7970095f-3967-5f61-a060-71dbac238f4d")
+		)
+		(pin "59"
+			(uuid "b7dd08ba-2db8-5a34-bbcb-c52811a39f0e")
+		)
+		(pin "60"
+			(uuid "85d8b02c-6deb-5d04-9bf1-8c45097905ed")
+		)
+		(instances
+			(project "sd-led-card"
+				(path "/7a27751f-9548-47ad-9f45-899b84ebad22"
+					(reference "U1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "SDLED:SD_Edge_9Pin")
+		(at 45.72 60.96 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7b4f6b69-5829-5f40-bf4f-03d900a6b2d1")
+		(property "Reference" "J1"
+			(at 45.72 52.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SD edge contacts"
+			(at 45.72 68.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Connector_Card:SD_Card_Device_16mm_SlotDepth"
+			(at 45.72 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 45.72 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "cf08e517-eb84-5813-8799-47e28ead677b")
+		)
+		(pin "2"
+			(uuid "7d0466e1-f57d-52a5-95ba-a52e41f0da19")
+		)
+		(pin "3"
+			(uuid "c424ad9d-fc17-5246-adc3-cf6ec59c1f62")
+		)
+		(pin "4"
+			(uuid "3d0ab503-5606-5053-b7d7-2baf5f1a499e")
+		)
+		(pin "5"
+			(uuid "01857189-0e31-524a-8e8e-c9101960f6d3")
+		)
+		(pin "6"
+			(uuid "c7ac9925-650e-5d67-a51c-c02897364cef")
+		)
+		(pin "7"
+			(uuid "84ef7d3a-3a40-5b4c-b62d-c2c86d2b13c5")
+		)
+		(pin "8"
+			(uuid "1abb78d8-4aad-5898-b98b-bb27dfb0c70d")
+		)
+		(pin "9"
+			(uuid "813e20fc-9ffc-510c-a58f-8a12a66865c1")
+		)
+		(instances
+			(project "sd-led-card"
+				(path "/7a27751f-9548-47ad-9f45-899b84ebad22"
+					(reference "J1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "SDLED:DebugPads_8")
+		(at 45.72 104.14 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ae070b2f-28bd-5356-8e6a-a40941525f25")
+		(property "Reference" "DBG1"
+			(at 45.72 96.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "SWD/debug pads"
+			(at 45.72 112.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "SDLED:Debug_Robot_Pads_8"
+			(at 45.72 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 45.72 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e863f2c0-cde2-5781-8559-a5fb3865841f")
+		)
+		(pin "2"
+			(uuid "b9cd34af-94cf-50fb-972a-66b70374e9db")
+		)
+		(pin "3"
+			(uuid "e64fef8e-5f87-5b90-89bf-df2ccd6d4136")
+		)
+		(pin "4"
+			(uuid "2106ce59-c5ab-502d-b3c1-fc7435ceedf6")
+		)
+		(pin "5"
+			(uuid "b27d457f-9d32-5a7d-834c-b157973c76c1")
+		)
+		(pin "6"
+			(uuid "1d82d7fe-279b-53f4-80cb-3285d2330e5e")
+		)
+		(pin "7"
+			(uuid "222772b1-2da8-5639-a084-35ee386b5e04")
+		)
+		(pin "8"
+			(uuid "27ba559b-2e1b-5ffa-ba80-3e7fa062b714")
+		)
+		(instances
+			(project "sd-led-card"
+				(path "/7a27751f-9548-47ad-9f45-899b84ebad22"
+					(reference "DBG1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "SDLED:TouchPad")
+		(at 45.72 130.81 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "00666311-aba3-5cee-88d9-75bf62bad854")
+		(property "Reference" "CT1"
+			(at 45.72 122.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Cap touch"
+			(at 45.72 138.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "SDLED:Cap_Touch_Pad"
+			(at 45.72 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 45.72 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "cb91c2fc-4a56-5b68-b748-f2d7a245d593")
+		)
+		(instances
+			(project "sd-led-card"
+				(path "/7a27751f-9548-47ad-9f45-899b84ebad22"
+					(reference "CT1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "SDLED:Capacitor")
+		(at 95.25 130.81 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "eff36afd-f8f1-5d68-86ea-73f1f2ce58cc")
+		(property "Reference" "C1"
+			(at 95.25 122.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "100n"
+			(at 95.25 138.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+			(at 95.25 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 95.25 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c18283ab-b44d-50e3-846a-d1f4dca83e91")
+		)
+		(pin "2"
+			(uuid "db2371e7-35f5-5a6f-92fd-d56726e0f338")
+		)
+		(instances
+			(project "sd-led-card"
+				(path "/7a27751f-9548-47ad-9f45-899b84ebad22"
+					(reference "C1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "SDLED:Capacitor")
+		(at 110.49 130.81 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "e6c3a168-090b-58a1-b84e-70c56060c4d5")
+		(property "Reference" "C2"
+			(at 110.49 122.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "1u"
+			(at 110.49 138.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
+			(at 110.49 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 110.49 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "264b83d3-7fba-5393-9389-f9713ce2708e")
+		)
+		(pin "2"
+			(uuid "ac8fc8a1-db4d-5286-a999-5f87aff7d6f0")
+		)
+		(instances
+			(project "sd-led-card"
+				(path "/7a27751f-9548-47ad-9f45-899b84ebad22"
+					(reference "C2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "SDLED:Addressable_Side_RGB")
+		(at 45.72 160.02 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "41e101e1-eca1-5b80-bd78-d45c204bfaa8")
+		(property "Reference" "D1"
+			(at 45.72 152.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "side RGB addressable"
+			(at 45.72 168.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_RGB_Everlight_EASV3015RGBA0_Horizontal"
+			(at 45.72 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 45.72 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "07b367e5-da79-582f-a6d1-6e19ac9c44a3")
+		)
+		(pin "2"
+			(uuid "60c5161d-21de-5799-9d86-174812042842")
+		)
+		(pin "3"
+			(uuid "7a343095-d143-5698-aff7-dbea1547ab04")
+		)
+		(pin "4"
+			(uuid "281c55e7-a809-5ab3-bb46-0851118f1746")
+		)
+		(instances
+			(project "sd-led-card"
+				(path "/7a27751f-9548-47ad-9f45-899b84ebad22"
+					(reference "D1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "SDLED:Addressable_Side_RGB")
+		(at 69.85 160.02 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "0264f565-8135-5041-b7b0-9b5ff0d1ef30")
+		(property "Reference" "D2"
+			(at 69.85 152.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "side RGB addressable"
+			(at 69.85 168.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_RGB_Everlight_EASV3015RGBA0_Horizontal"
+			(at 69.85 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 69.85 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "161a2951-d06f-515f-bdd0-28ac062e60a1")
+		)
+		(pin "2"
+			(uuid "54b4a5b1-bccc-56dc-8f04-9747efbd0488")
+		)
+		(pin "3"
+			(uuid "2c6adb12-c3c8-5d55-a362-83622e0d95fc")
+		)
+		(pin "4"
+			(uuid "a7232765-6d8d-5545-8942-e39064388255")
+		)
+		(instances
+			(project "sd-led-card"
+				(path "/7a27751f-9548-47ad-9f45-899b84ebad22"
+					(reference "D2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "SDLED:Addressable_Side_RGB")
+		(at 93.98 160.02 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f4fd46d9-72a5-555c-ac40-422246aa9624")
+		(property "Reference" "D3"
+			(at 93.98 152.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "side RGB addressable"
+			(at 93.98 168.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_RGB_Everlight_EASV3015RGBA0_Horizontal"
+			(at 93.98 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 93.98 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "bca51337-1f9a-5da4-a5b4-db66a23e676f")
+		)
+		(pin "2"
+			(uuid "7e69dee8-ba44-5391-9f81-d7f89e50dd1d")
+		)
+		(pin "3"
+			(uuid "5dd3f1b3-6781-51c8-8df7-4167e256c4c5")
+		)
+		(pin "4"
+			(uuid "c42fea63-1a83-58dc-ac29-749933afbfc2")
+		)
+		(instances
+			(project "sd-led-card"
+				(path "/7a27751f-9548-47ad-9f45-899b84ebad22"
+					(reference "D3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "SDLED:Addressable_Side_RGB")
+		(at 118.11 160.02 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4f19bce3-dc82-59b0-83b0-37702d72e75d")
+		(property "Reference" "D4"
+			(at 118.11 152.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "side RGB addressable"
+			(at 118.11 168.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_RGB_Everlight_EASV3015RGBA0_Horizontal"
+			(at 118.11 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 118.11 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "406f012e-07ac-5ce9-95f4-f9b6486d4527")
+		)
+		(pin "2"
+			(uuid "fe4eae58-41da-5426-bf38-5c2a763f2543")
+		)
+		(pin "3"
+			(uuid "f33fe170-6ac8-5b6e-b0af-157204946a92")
+		)
+		(pin "4"
+			(uuid "62e5966c-5737-5a43-8b84-db028c2d9e27")
+		)
+		(instances
+			(project "sd-led-card"
+				(path "/7a27751f-9548-47ad-9f45-899b84ebad22"
+					(reference "D4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "SDLED:Addressable_Side_RGB")
+		(at 142.24 160.02 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "26bf8a84-ed92-51c2-828f-f898e9bcb268")
+		(property "Reference" "D5"
+			(at 142.24 152.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "side RGB addressable"
+			(at 142.24 168.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_RGB_Everlight_EASV3015RGBA0_Horizontal"
+			(at 142.24 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 142.24 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "02d1bc1d-af59-5e31-9d09-06da573d2b0a")
+		)
+		(pin "2"
+			(uuid "373d2940-e747-5980-9027-342dfaacaf52")
+		)
+		(pin "3"
+			(uuid "9383553c-a1e3-58d5-8e7f-687c09787260")
+		)
+		(pin "4"
+			(uuid "e3461df5-4f7b-54fe-803e-778c70bb2774")
+		)
+		(instances
+			(project "sd-led-card"
+				(path "/7a27751f-9548-47ad-9f45-899b84ebad22"
+					(reference "D5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "SDLED:Addressable_Side_RGB")
+		(at 166.37 160.02 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "857c78cc-999c-544b-a19a-59e98d9978c7")
+		(property "Reference" "D6"
+			(at 166.37 152.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "side RGB addressable"
+			(at 166.37 168.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_RGB_Everlight_EASV3015RGBA0_Horizontal"
+			(at 166.37 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 166.37 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "60e45747-233d-5d40-992d-8498b6080dbd")
+		)
+		(pin "2"
+			(uuid "85d3f0eb-0aa5-5a03-a4a5-3468b15e1e7d")
+		)
+		(pin "3"
+			(uuid "36373c03-5ed4-5d28-8de4-32a219638225")
+		)
+		(pin "4"
+			(uuid "2275be8b-2335-5f41-b539-9aaa8f50db30")
+		)
+		(instances
+			(project "sd-led-card"
+				(path "/7a27751f-9548-47ad-9f45-899b84ebad22"
+					(reference "D6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol_instances)
+	(embedded_fonts no)
 )

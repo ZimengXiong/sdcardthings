@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import json
+import uuid
 from pathlib import Path
 
 import pcbnew
@@ -96,6 +97,36 @@ def add_pad(
     board.Add(fp)
 
 
+def add_pad_footprint(
+    board: pcbnew.BOARD,
+    ref: str,
+    value: str,
+    pads: list[tuple[str, float, float, float, float, int]],
+    side: str = "front",
+) -> None:
+    fp = pcbnew.FOOTPRINT(board)
+    fp.SetReference(ref)
+    fp.SetValue(value)
+    fp.Reference().SetVisible(False)
+    fp.Value().SetVisible(False)
+    if side == "back":
+        fp.SetLayer(pcbnew.B_Cu)
+
+    for number, x, y, w, h, shape in pads:
+        pad = pcbnew.PAD(fp)
+        pad.SetNumber(number)
+        pad.SetAttribute(pcbnew.PAD_ATTRIB_SMD)
+        pad.SetShape(shape)
+        pad.SetLayerSet(smd_layers(side))
+        pad.SetPosition(mm(x, y))
+        pad.SetSize(mm(w, h))
+        if shape == pcbnew.PAD_SHAPE_ROUNDRECT:
+            pad.SetRoundRectRadiusRatio(0.12)
+        fp.Add(pad)
+
+    board.Add(fp)
+
+
 def add_filled_rect(board: pcbnew.BOARD, layer: int, start, end, width: float = 0.01) -> None:
     shape = pcbnew.PCB_SHAPE(board)
     shape.SetShape(pcbnew.SHAPE_T_RECT)
@@ -151,6 +182,353 @@ def add_layer_text(
     item.SetTextSize(mm(size, size))
     item.SetTextThickness(pcbnew.FromMM(0.08))
     board.Add(item)
+
+
+SCHEMATIC_UUID = "7a27751f-9548-47ad-9f45-899b84ebad22"
+
+
+def stable_uuid(key: str) -> str:
+    return str(uuid.uuid5(uuid.UUID(SCHEMATIC_UUID), key))
+
+
+def sch_property(name: str, value: str, x: float, y: float, pid: int, hide: bool = False) -> str:
+    hidden = "\n\t\t\t(hide yes)" if hide else ""
+    return f'''\
+\t\t(property "{name}" "{value}"
+\t\t\t(at {x:.2f} {y:.2f} 0)
+\t\t\t(effects
+\t\t\t\t(font
+\t\t\t\t\t(size 1.27 1.27)
+\t\t\t\t)
+{hidden}
+\t\t\t)
+\t\t)
+'''
+
+
+def symbol_def(lib_id: str, ref_prefix: str, value: str, pins: list[tuple[str, str, str, float]]) -> str:
+    height = max(8.0, (len(pins) + 1) * 1.27)
+    y_top = height / 2
+    y_bottom = -height / 2
+    pin_defs = []
+    for idx, (number, name, side, y) in enumerate(pins):
+        x = -15.24 if side == "left" else 15.24
+        angle = 0 if side == "left" else 180
+        pin_defs.append(f'''\
+\t\t\t\t(pin passive line
+\t\t\t\t\t(at {x:.2f} {y:.2f} {angle})
+\t\t\t\t\t(length 5.08)
+\t\t\t\t\t(name "{name}"
+\t\t\t\t\t\t(effects
+\t\t\t\t\t\t\t(font
+\t\t\t\t\t\t\t\t(size 1.0 1.0)
+\t\t\t\t\t\t\t)
+\t\t\t\t\t\t)
+\t\t\t\t\t)
+\t\t\t\t\t(number "{number}"
+\t\t\t\t\t\t(effects
+\t\t\t\t\t\t\t(font
+\t\t\t\t\t\t\t\t(size 1.0 1.0)
+\t\t\t\t\t\t\t)
+\t\t\t\t\t\t)
+\t\t\t\t\t)
+\t\t\t\t)
+''')
+    short = lib_id.split(":")[-1]
+    return f'''\
+\t\t(symbol "{lib_id}"
+\t\t\t(pin_names
+\t\t\t\t(offset 0.762)
+\t\t\t)
+\t\t\t(exclude_from_sim no)
+\t\t\t(in_bom yes)
+\t\t\t(on_board yes)
+{sch_property("Reference", ref_prefix, 0, y_top + 2.54, 0)}{sch_property("Value", value, 0, y_bottom - 2.54, 1)}{sch_property("Footprint", "", 0, 0, 2, True)}{sch_property("Datasheet", "~", 0, 0, 3, True)}
+\t\t\t(symbol "{short}_1_1"
+\t\t\t\t(rectangle
+\t\t\t\t\t(start -10.16 {y_top:.2f})
+\t\t\t\t\t(end 10.16 {y_bottom:.2f})
+\t\t\t\t\t(stroke
+\t\t\t\t\t\t(width 0.254)
+\t\t\t\t\t\t(type default)
+\t\t\t\t\t)
+\t\t\t\t\t(fill
+\t\t\t\t\t\t(type background)
+\t\t\t\t\t)
+\t\t\t\t)
+{"".join(pin_defs)}\t\t\t)
+\t\t\t(embedded_fonts no)
+\t\t)
+'''
+
+
+def placed_symbol(
+    lib_id: str,
+    ref: str,
+    value: str,
+    footprint: str,
+    x: float,
+    y: float,
+    pins: list[tuple[str, str, str, float]],
+    project_name: str,
+) -> str:
+    pin_entries = "\n".join(
+        f'\t\t(pin "{number}"\n\t\t\t(uuid "{stable_uuid(ref + "-pin-" + number)}")\n\t\t)'
+        for number, _, _, _ in pins
+    )
+    return f'''\
+\t(symbol
+\t\t(lib_id "{lib_id}")
+\t\t(at {x:.2f} {y:.2f} 0)
+\t\t(unit 1)
+\t\t(exclude_from_sim no)
+\t\t(in_bom yes)
+\t\t(on_board yes)
+\t\t(dnp no)
+\t\t(uuid "{stable_uuid(ref)}")
+\t\t(property "Reference" "{ref}"
+\t\t\t(at {x:.2f} {y - 8.0:.2f} 0)
+\t\t\t(effects
+\t\t\t\t(font
+\t\t\t\t\t(size 1.27 1.27)
+\t\t\t\t)
+\t\t\t)
+\t\t)
+\t\t(property "Value" "{value}"
+\t\t\t(at {x:.2f} {y + 8.0:.2f} 0)
+\t\t\t(effects
+\t\t\t\t(font
+\t\t\t\t\t(size 1.27 1.27)
+\t\t\t\t)
+\t\t\t)
+\t\t)
+\t\t(property "Footprint" "{footprint}"
+\t\t\t(at {x:.2f} {y:.2f} 0)
+\t\t\t(effects
+\t\t\t\t(font
+\t\t\t\t\t(size 1.27 1.27)
+\t\t\t\t)
+\t\t\t\t(hide yes)
+\t\t\t)
+\t\t)
+\t\t(property "Datasheet" "~"
+\t\t\t(at {x:.2f} {y:.2f} 0)
+\t\t\t(effects
+\t\t\t\t(font
+\t\t\t\t\t(size 1.27 1.27)
+\t\t\t\t)
+\t\t\t\t(hide yes)
+\t\t\t)
+\t\t)
+{pin_entries}
+\t\t(instances
+\t\t\t(project "{project_name}"
+\t\t\t\t(path "/{SCHEMATIC_UUID}"
+\t\t\t\t\t(reference "{ref}")
+\t\t\t\t\t(unit 1)
+\t\t\t\t)
+\t\t\t)
+\t\t)
+\t)
+'''
+
+
+def label(name: str, x: float, y: float, angle: int = 0) -> str:
+    justify = "right bottom" if angle == 180 else "left bottom"
+    return f'''\
+\t(label "{name}"
+\t\t(at {x:.2f} {y:.2f} {angle})
+\t\t(effects
+\t\t\t(font
+\t\t\t\t(size 1.0 1.0)
+\t\t\t)
+\t\t\t(justify {justify})
+\t\t)
+\t\t(uuid "{stable_uuid("label-" + name + f"-{x:.2f}-{y:.2f}")}")
+\t)
+'''
+
+
+def labels_for_symbol(x: float, y: float, pins: list[tuple[str, str, str, float]], labels: dict[str, str]) -> str:
+    out = []
+    for number, _, side, pin_y in pins:
+        if number not in labels:
+            continue
+        lx = x - 15.24 if side == "left" else x + 15.24
+        ly = y - pin_y
+        angle = 0 if side == "left" else 180
+        out.append(label(labels[number], lx, ly, angle))
+    return "".join(out)
+
+
+def no_connect(x: float, y: float) -> str:
+    return f'''\
+\t(no_connect
+\t\t(at {x:.2f} {y:.2f})
+\t\t(uuid "{stable_uuid(f"nc-{x:.2f}-{y:.2f}")}")
+\t)
+'''
+
+
+def no_connects_for_symbol(
+    x: float,
+    y: float,
+    pins: list[tuple[str, str, str, float]],
+    connected_pin_numbers: set[str],
+) -> str:
+    out = []
+    for number, _, side, pin_y in pins:
+        if number in connected_pin_numbers:
+            continue
+        nx = x - 15.24 if side == "left" else x + 15.24
+        ny = y - pin_y
+        out.append(no_connect(nx, ny))
+    return "".join(out)
+
+
+def build_schematic() -> str:
+    project_name = "sd-led-card"
+    mcu_x, mcu_y = 120.65, 85.09
+    sd_x, sd_y = 45.72, 60.96
+    dbg_x, dbg_y = 45.72, 104.14
+    touch_x, touch_y = 45.72, 130.81
+    cap1_x, cap_y = 95.25, 130.81
+    cap2_x = 110.49
+    led_x0, led_y, led_pitch = 45.72, 160.02, 24.13
+    mcu_left = [
+        ("1", "GP0/SD_CMD", "left", 24.13),
+        ("2", "GP1/SD_CLK", "left", 21.59),
+        ("3", "GP2/SD_DAT0", "left", 19.05),
+        ("4", "GP3/SD_DAT1", "left", 16.51),
+        ("5", "GP4/SD_DAT2", "left", 13.97),
+        ("6", "GP5/SD_DAT3", "left", 11.43),
+        ("7", "GP6/LED_DIN", "left", 8.89),
+        ("8", "GP7/CAP_TOUCH", "left", 6.35),
+        ("9", "SWDIO", "left", 3.81),
+        ("10", "SWCLK", "left", 1.27),
+        ("11", "RUN", "left", -1.27),
+        ("12", "UART_TX", "left", -3.81),
+        ("13", "UART_RX", "left", -6.35),
+        ("14", "3V3", "left", -8.89),
+        ("15", "GND", "left", -11.43),
+    ]
+    mcu_right = [(str(i), f"NC{i}", "right", 24.13 - (i - 16) * 1.27) for i in range(16, 61)]
+    mcu_pins = mcu_left + mcu_right
+    sd_pins = [
+        ("1", "DAT2", "right", 10.16),
+        ("2", "DAT3/CD", "right", 7.62),
+        ("3", "CMD", "right", 5.08),
+        ("4", "VDD", "right", 2.54),
+        ("5", "CLK", "right", 0),
+        ("6", "VSS", "right", -2.54),
+        ("7", "DAT0", "right", -5.08),
+        ("8", "DAT1", "right", -7.62),
+        ("9", "VSS2", "right", -10.16),
+    ]
+    led_pins = [
+        ("1", "VDD", "left", 3.81),
+        ("2", "DOUT", "right", 1.27),
+        ("3", "GND", "left", -1.27),
+        ("4", "DIN", "right", -3.81),
+    ]
+    cap_pins = [("1", "1", "left", 1.27), ("2", "2", "left", -1.27)]
+    dbg_pins = [
+        ("1", "SWDIO", "right", 8.89),
+        ("2", "SWCLK", "right", 6.35),
+        ("3", "RUN", "right", 3.81),
+        ("4", "3V3", "right", 1.27),
+        ("5", "GND", "right", -1.27),
+        ("6", "UART_TX", "right", -3.81),
+        ("7", "UART_RX", "right", -6.35),
+        ("8", "BOOTSEL", "right", -8.89),
+    ]
+    touch_pins = [("1", "TOUCH", "right", 0)]
+
+    lib_symbols = "".join(
+        [
+            symbol_def("SDLED:RP2350A_QFN60_Min", "U", "RP2350A", mcu_pins),
+            symbol_def("SDLED:SD_Edge_9Pin", "J", "SD edge contacts", sd_pins),
+            symbol_def("SDLED:Addressable_Side_RGB", "D", "Side RGB addressable LED", led_pins),
+            symbol_def("SDLED:Capacitor", "C", "Capacitor", cap_pins),
+            symbol_def("SDLED:DebugPads_8", "J", "SWD/debug pads", dbg_pins),
+            symbol_def("SDLED:TouchPad", "TP", "Cap touch electrode", touch_pins),
+        ]
+    )
+
+    symbols = [
+        placed_symbol("SDLED:RP2350A_QFN60_Min", "U1", "RP2350A", "Package_DFN_QFN:QFN-60-1EP_7x7mm_P0.4mm_EP3.4x3.4mm", mcu_x, mcu_y, mcu_pins, project_name),
+        placed_symbol("SDLED:SD_Edge_9Pin", "J1", "SD edge contacts", "Connector_Card:SD_Card_Device_16mm_SlotDepth", sd_x, sd_y, sd_pins, project_name),
+        placed_symbol("SDLED:DebugPads_8", "DBG1", "SWD/debug pads", "SDLED:Debug_Robot_Pads_8", dbg_x, dbg_y, dbg_pins, project_name),
+        placed_symbol("SDLED:TouchPad", "CT1", "Cap touch", "SDLED:Cap_Touch_Pad", touch_x, touch_y, touch_pins, project_name),
+        placed_symbol("SDLED:Capacitor", "C1", "100n", "Capacitor_SMD:C_0402_1005Metric", cap1_x, cap_y, cap_pins, project_name),
+        placed_symbol("SDLED:Capacitor", "C2", "1u", "Capacitor_SMD:C_0402_1005Metric", cap2_x, cap_y, cap_pins, project_name),
+    ]
+    for i in range(6):
+        symbols.append(
+            placed_symbol(
+                "SDLED:Addressable_Side_RGB",
+                f"D{i + 1}",
+                "side RGB addressable",
+                "LED_SMD:LED_RGB_Everlight_EASV3015RGBA0_Horizontal",
+                led_x0 + i * led_pitch,
+                led_y,
+                led_pins,
+                project_name,
+            )
+        )
+
+    labels = []
+    mcu_labels = {
+        "1": "SD_CMD", "2": "SD_CLK", "3": "SD_DAT0", "4": "SD_DAT1",
+        "5": "SD_DAT2", "6": "SD_DAT3", "7": "LED_D0", "8": "CAP_TOUCH",
+        "9": "SWDIO", "10": "SWCLK", "11": "RUN", "12": "UART_TX",
+        "13": "UART_RX", "14": "+3V3", "15": "GND",
+    }
+    sd_labels = {
+        "1": "SD_DAT2", "2": "SD_DAT3", "3": "SD_CMD", "4": "+3V3",
+        "5": "SD_CLK", "6": "GND", "7": "SD_DAT0", "8": "SD_DAT1", "9": "GND",
+    }
+    dbg_labels = {
+        "1": "SWDIO", "2": "SWCLK", "3": "RUN", "4": "+3V3",
+        "5": "GND", "6": "UART_TX", "7": "UART_RX", "8": "BOOTSEL",
+    }
+    labels.append(labels_for_symbol(mcu_x, mcu_y, mcu_pins, mcu_labels))
+    labels.append(no_connects_for_symbol(mcu_x, mcu_y, mcu_pins, set(mcu_labels)))
+    labels.append(labels_for_symbol(sd_x, sd_y, sd_pins, sd_labels))
+    labels.append(labels_for_symbol(dbg_x, dbg_y, dbg_pins, dbg_labels))
+    labels.append(labels_for_symbol(touch_x, touch_y, touch_pins, {"1": "CAP_TOUCH"}))
+    labels.append(labels_for_symbol(cap1_x, cap_y, cap_pins, {"1": "+3V3", "2": "GND"}))
+    labels.append(labels_for_symbol(cap2_x, cap_y, cap_pins, {"1": "+3V3", "2": "GND"}))
+    for i in range(6):
+        din = "LED_D0" if i == 0 else f"LED_D{i}"
+        dout = f"LED_D{i + 1}"
+        led_labels = {
+            "1": "+3V3", "2": dout, "3": "GND", "4": din,
+        }
+        if i == 5:
+            led_labels.pop("2")
+        x = led_x0 + i * led_pitch
+        labels.append(labels_for_symbol(x, led_y, led_pins, led_labels))
+        if i == 5:
+            labels.append(no_connects_for_symbol(x, led_y, led_pins, set(led_labels)))
+
+    return f'''(kicad_sch
+\t(version 20250114)
+\t(generator "sd-led-card-scaffold")
+\t(generator_version "1.0")
+\t(uuid "{SCHEMATIC_UUID}")
+\t(paper "A4")
+\t(title_block
+\t\t(title "SD LED Card")
+\t\t(rev "R0")
+\t\t(comment 1 "Functional schematic for SD emulator, RGB LEDs, capacitive touch, and debug pads.")
+\t)
+\t(lib_symbols
+{lib_symbols}\t)
+{"".join(labels)}{"".join(symbols)}\t(symbol_instances)
+\t(embedded_fonts no)
+)
+'''
 
 
 def add_edge_arc(board: pcbnew.BOARD, start, mid, end) -> None:
@@ -268,14 +646,6 @@ def main() -> None:
         61.75,
         INSERTED_REGION_MAX_Y_MM - 0.25,
     )
-    add_layer_text(
-        board,
-        f"MECH: F-side +{CONTACT_REGION_STIFFENER_MM:.1f}mm stiffener here",
-        39.1,
-        46.9,
-        pcbnew.User_1,
-        0.55,
-    )
 
     # RP2350A placeholder footprint. Final symbol/part selection still needs
     # schematic work, but this is the right package class for first placement.
@@ -365,8 +735,16 @@ def main() -> None:
         (44.6, 51.4), (44.6, 52.7),
         (39.8, 54.1), (41.4, 54.1), (43.0, 54.1), (44.6, 54.1),
     ]
-    for i, (x, y) in enumerate(dbg, start=1):
-        add_pad(board, "DBG", str(i), x, y, 0.62, 0.62, pcbnew.PAD_SHAPE_CIRCLE, "back")
+    add_pad_footprint(
+        board,
+        "DBG1",
+        "SWD/debug pads",
+        [
+            (str(i), x, y, 0.62, 0.62, pcbnew.PAD_SHAPE_CIRCLE)
+            for i, (x, y) in enumerate(dbg, start=1)
+        ],
+        "back",
+    )
 
     OUT.parent.mkdir(parents=True, exist_ok=True)
     pcbnew.SaveBoard(str(OUT), board)
@@ -404,24 +782,10 @@ def main() -> None:
         "sheets": [["00000000-0000-0000-0000-000000000000", "Root"]],
         "text_variables": {},
     }
-    PRO.write_text(json.dumps(project, indent=2) + "\n")
+    if not PRO.exists():
+        PRO.write_text(json.dumps(project, indent=2) + "\n")
 
-    SCH.write_text(
-        """(kicad_sch
-  (version 20250114)
-  (generator "sd-led-card-scaffold")
-  (paper "A4")
-  (title_block
-    (title "SD LED Card")
-    (rev "R0")
-    (comment 1 "Schematic capture pending; PCB scaffold uses KiCad SD-card-device footprint.")
-  )
-  (lib_symbols)
-  (symbol_instances)
-)
-""",
-        encoding="utf-8",
-    )
+    SCH.write_text(build_schematic(), encoding="utf-8")
 
     print(f"Wrote {OUT}")
     print(f"Wrote {PRO}")
