@@ -1,5 +1,5 @@
 ** Drc report for sd-led-card.kicad_pcb **
-** Created on 2026-05-26T23:57:18 **
+** Created on 2026-05-27T00:10:16 **
 ** Report includes: Errors, Warnings **
 
 ** Found 0 DRC violations **
@@ -9,7 +9,9 @@
 ** Found 0 Footprint errors **
 
 ** Ignored checks **
+    - Board edge clearance violation
     - Footprint has no courtyard defined
+    - Solder mask aperture bridges items with different nets
     - Track endpoint not centered on via
     - Tuning profile track geometries
     - Footprint doesn't match symbol's footprint filters

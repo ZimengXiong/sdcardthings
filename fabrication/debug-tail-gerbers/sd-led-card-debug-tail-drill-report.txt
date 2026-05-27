@@ -1,0 +1,22 @@
+Drill report for sd-led-card.kicad_pcb
+Created on 2026-05-27T00:10:38
+
+Copper Layer Stackup:
+    =============================================================
+    L1 :  F.Cu                      front
+    L2 :  B.Cu                      back
+
+
+Drill file 'sd-led-card.drl' contains
+    plated through holes:
+    =============================================================
+    T1  0.300mm  0.0118"  (9 holes))
+
+    Total plated holes count 9
+
+
+Not plated through holes are merged with plated holes
+    unplated through holes:
+    =============================================================
+
+    Total unplated holes count 0

@@ -102,6 +102,7 @@ def add_pad_footprint(
     value: str,
     pads: list[tuple[str, float, float, float, float, int]],
     side: str = "front",
+    pad_nets: dict[str, pcbnew.NETINFO_ITEM] | None = None,
 ) -> None:
     fp = pcbnew.FOOTPRINT(board)
     fp.SetReference(ref)
@@ -119,8 +120,34 @@ def add_pad_footprint(
         pad.SetLayerSet(smd_layers(side))
         pad.SetPosition(mm(x, y))
         pad.SetSize(mm(w, h))
+        if pad_nets and number in pad_nets:
+            pad.SetNet(pad_nets[number])
         if shape == pcbnew.PAD_SHAPE_ROUNDRECT:
             pad.SetRoundRectRadiusRatio(0.12)
+        fp.Add(pad)
+
+    board.Add(fp)
+
+
+def add_npth_holes(board: pcbnew.BOARD, ref: str, holes: list[tuple[float, float]], drill: float = 0.45) -> None:
+    fp = pcbnew.FOOTPRINT(board)
+    fp.SetReference(ref)
+    fp.SetValue("mouse-bite breakaway holes")
+    fp.Reference().SetVisible(False)
+    fp.Value().SetVisible(False)
+
+    layers = pcbnew.LSET()
+    layers.AddLayer(pcbnew.Edge_Cuts)
+
+    for idx, (x, y) in enumerate(holes, start=1):
+        pad = pcbnew.PAD(fp)
+        pad.SetNumber(str(idx))
+        pad.SetAttribute(pcbnew.PAD_ATTRIB_NPTH)
+        pad.SetShape(pcbnew.PAD_SHAPE_CIRCLE)
+        pad.SetLayerSet(layers)
+        pad.SetPosition(mm(x, y))
+        pad.SetSize(mm(drill, drill))
+        pad.SetDrillSize(mm(drill, drill))
         fp.Add(pad)
 
     board.Add(fp)
@@ -539,21 +566,50 @@ def add_edge_arc(board: pcbnew.BOARD, start, mid, end) -> None:
     board.Add(shape)
 
 
-def add_track(board: pcbnew.BOARD, start, end, width: float = 0.15, layer: int = pcbnew.B_Cu) -> None:
+def add_track(
+    board: pcbnew.BOARD,
+    start,
+    end,
+    width: float = 0.15,
+    layer: int = pcbnew.B_Cu,
+    net: pcbnew.NETINFO_ITEM | None = None,
+) -> None:
     track = pcbnew.PCB_TRACK(board)
     track.SetLayer(layer)
     track.SetWidth(pcbnew.FromMM(width))
     track.SetStart(mm(*start))
     track.SetEnd(mm(*end))
+    if net:
+        track.SetNet(net)
     board.Add(track)
 
 
-def add_via(board: pcbnew.BOARD, x: float, y: float, diameter: float = 0.42, drill: float = 0.2) -> None:
+def add_polyline_track(
+    board: pcbnew.BOARD,
+    points: list[tuple[float, float]],
+    width: float = 0.15,
+    layer: int = pcbnew.B_Cu,
+    net: pcbnew.NETINFO_ITEM | None = None,
+) -> None:
+    for start, end in zip(points, points[1:]):
+        add_track(board, start, end, width, layer, net)
+
+
+def add_via(
+    board: pcbnew.BOARD,
+    x: float,
+    y: float,
+    diameter: float = 0.5,
+    drill: float = 0.3,
+    net: pcbnew.NETINFO_ITEM | None = None,
+) -> None:
     via = pcbnew.PCB_VIA(board)
     via.SetPosition(mm(x, y))
     via.SetWidth(pcbnew.FromMM(diameter))
     via.SetDrill(pcbnew.FromMM(drill))
     via.SetLayerPair(pcbnew.F_Cu, pcbnew.B_Cu)
+    if net:
+        via.SetNet(net)
     board.Add(via)
 
 
@@ -603,12 +659,29 @@ def set_3d_model(fp, filename: str, scale=(1.0, 1.0, 1.0)) -> None:
     fp.Add3DModel(model)
 
 
+def add_net(board: pcbnew.BOARD, name: str) -> pcbnew.NETINFO_ITEM:
+    net = pcbnew.NETINFO_ITEM(board, name)
+    board.Add(net)
+    return net
+
+
 def main() -> None:
     board = pcbnew.BOARD()
     board.SetBoardUse(0)
     settings = board.GetDesignSettings()
     settings.SetBoardThickness(pcbnew.FromMM(BOARD_THICKNESS_MM))
     board.SetDesignSettings(settings)
+    sd_nets = {
+        "1": add_net(board, "SD_DAT2"),
+        "2": add_net(board, "SD_DAT3"),
+        "3": add_net(board, "SD_CMD"),
+        "4": add_net(board, "+3V3"),
+        "5": add_net(board, "SD_CLK"),
+        "6": add_net(board, "GND"),
+        "7": add_net(board, "SD_DAT0"),
+        "8": add_net(board, "SD_DAT1"),
+        "9": add_net(board, "SD_VSS2"),
+    }
 
     # Full-size SD-card outline and contacts from KiCad's device-side SD card
     # template. Keeping this as the mechanical/contact source of truth avoids
@@ -623,15 +696,69 @@ def main() -> None:
     )
     hide_ref_value(sd_card)
     board.Add(sd_card)
+    for pad in sd_card.Pads():
+        number = str(pad.GetNumber())
+        if number in sd_nets:
+            pad.SetNet(sd_nets[number])
 
     # The KiCad template models the inserted 16 mm contact/mechanical region.
     # Close it into our full visible card by extending the outline to the
     # exposed LED lip.
     add_edge_segment(board, (38, 49.95), (38, 65.0))
     add_edge_arc(board, (38, 65.0), (38.292893, 65.707107), (39, 66.0))
-    add_edge_segment(board, (39, 66.0), (61, 66.0))
+    add_edge_segment(board, (39.0, 66.0), (43.5, 66.0))
+    add_edge_segment(board, (43.5, 66.0), (43.5, 69.0))
+    add_edge_segment(board, (43.5, 69.0), (36.0, 69.0))
+    add_edge_segment(board, (36.0, 69.0), (36.0, 88.0))
+    add_edge_segment(board, (36.0, 88.0), (64.0, 88.0))
+    add_edge_segment(board, (64.0, 88.0), (64.0, 69.0))
+    add_edge_segment(board, (64.0, 69.0), (56.5, 69.0))
+    add_edge_segment(board, (56.5, 69.0), (56.5, 66.0))
+    add_edge_segment(board, (56.5, 66.0), (61.0, 66.0))
     add_edge_arc(board, (61, 66.0), (61.707107, 65.707107), (62, 65.0))
     add_edge_segment(board, (62, 65.0), (62, 49.95))
+
+    # Debug-only breakaway tail. The narrow 13 mm neck is intentionally weaker
+    # than the tab/card bodies. Cut or flex it off after probing the SD contacts.
+
+    sd_probe_pads = [
+        ("8", 38.9, 80.5), ("7", 41.7, 80.5), ("6", 44.5, 80.5),
+        ("5", 47.3, 80.5), ("4", 50.1, 80.5), ("3", 52.9, 80.5),
+        ("2", 55.7, 80.5), ("1", 58.5, 80.5), ("9", 61.3, 80.5),
+    ]
+    add_pad_footprint(
+        board,
+        "J2",
+        "breakaway SD probe pads",
+        [(num, x, y, 1.25, 2.4, pcbnew.PAD_SHAPE_ROUNDRECT) for num, x, y in sd_probe_pads],
+        "front",
+        sd_nets,
+    )
+    add_text(board, "SD PROBE", 43.0, 84.3, 0.8, 0)
+
+    sd_contact_xy = {
+        "1": (56.875, 38.9), "2": (54.375, 38.9), "3": (51.875, 38.9),
+        "4": (49.375, 38.9), "5": (46.875, 38.9), "6": (44.375, 38.9),
+        "7": (41.95, 38.9), "8": (40.25, 38.9), "9": (59.375, 41.1),
+    }
+    sd_neck_x = {
+        "8": 44.2, "7": 45.2, "6": 46.2, "5": 47.2, "4": 48.5,
+        "3": 50.0, "2": 51.5, "1": 53.0, "9": 55.0,
+    }
+    for num, probe_x, probe_y in sd_probe_pads:
+        contact_x, contact_y = sd_contact_xy[num]
+        net = sd_nets[num]
+        via_y = 42.2
+        add_track(board, (contact_x, contact_y), (contact_x, via_y), 0.2, pcbnew.B_Cu, net)
+        add_via(board, contact_x, via_y, 0.55, 0.3, net)
+        neck_x = sd_neck_x[num]
+        add_polyline_track(
+            board,
+            [(contact_x, via_y), (contact_x, 63.0), (neck_x, 68.0), (probe_x, 74.0), (probe_x, probe_y - 1.2)],
+            0.2,
+            pcbnew.F_Cu,
+            net,
+        )
 
     # RP2350A placeholder footprint. Final symbol/part selection still needs
     # schematic work, but this is the right package class for first placement.

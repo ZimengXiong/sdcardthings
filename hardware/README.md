@@ -20,6 +20,9 @@ Current generated PCB status:
 - The schematic now captures the intended electrical blocks: SD edge contacts,
   RP2350A, chained addressable side LEDs, capacitive touch, decoupling, and
   SWD/debug pads.
+- The current PCB includes a debug-only breakaway probe tail. It extends past
+  the exposed end of the SD card and brings the nine SD edge contacts out to
+  larger probe pads so host/card behavior can be observed while inserted.
 - Components are placed on the same face as the SD contact pads.
 - Decorative no-net routing has been removed.
 - The remaining production gates are exact LED part/footprint selection, final
@@ -52,6 +55,11 @@ too thin for some SD-slot spring contacts even if it physically inserts cleanly.
 The next practical step is a cheap bare-board/mechanical coupon with ENIG edge
 pads. Test insertion, removal, pad contact, and whether the side LEDs remain
 visible in the target Mac slot before committing to an assembled run.
+
+For bring-up, order the debug-tail Gerbers first. The tail is not part of the
+final card; cut or flex off the narrow neck after probing, then lightly smooth
+the exposed edge. Do not use the debug-tail board as the final mechanical fit
+answer until the snapped edge has been cleaned up and rechecked in the slot.
 
 Run `tools/check_mechanical_envelope.py` after regenerating the board. It fails
 if any known package body is placed inside the inserted 16 mm SD-slot region or
