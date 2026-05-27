@@ -44,18 +44,14 @@ The current placement keeps component bodies outside that inserted 16 mm region:
 | Debug/test pads | SD-contact side | bare copper | Mechanically safe; no component height. |
 
 The 0.8 mm stack makes the current known package heights fit below the normal
-2.1 mm SD-card thickness. The contact reliability plan is to add a **0.6 mm
-nonconductive stiffener/buildup on the non-contact side of the inserted
-contact region only**, bringing that local spring-contact area to about
-1.4 mm while leaving the populated exposed region at the thinner 0.8 mm PCB
-stack. The board marks this as a `User.1` mechanical/fabrication outline; it is
-not copper, paste, mask, or silkscreen.
+2.1 mm SD-card thickness. This revision intentionally does **not** use a local
+stiffener or thickness buildup, because that complicates fabrication. The main
+remaining mechanical risk is contact reliability: a 0.8 mm rigid PCB may be
+too thin for some SD-slot spring contacts even if it physically inserts cleanly.
 
-This is mechanically plausible for insertion/contact because the inserted
-region lands at the thin SD/MMC thickness, and the populated region stays below
-normal SD thickness. It is not a guarantee until a fabrication coupon is tested
-in the exact Mac SD slot, because Apple does not publish the slot spring
-deflection/contact-force envelope.
+The next practical step is a cheap bare-board/mechanical coupon with ENIG edge
+pads. Test insertion, removal, pad contact, and whether the side LEDs remain
+visible in the target Mac slot before committing to an assembled run.
 
 Run `tools/check_mechanical_envelope.py` after regenerating the board. It fails
 if any known package body is placed inside the inserted 16 mm SD-slot region or

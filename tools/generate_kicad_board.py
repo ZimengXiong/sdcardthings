@@ -16,7 +16,6 @@ OUT = ROOT / "hardware" / "sd-led-card.kicad_pcb"
 PRO = ROOT / "hardware" / "sd-led-card.kicad_pro"
 SCH = ROOT / "hardware" / "sd-led-card.kicad_sch"
 BOARD_THICKNESS_MM = 0.8
-CONTACT_REGION_STIFFENER_MM = 0.6
 INSERTED_REGION_MIN_Y_MM = 34.05
 INSERTED_REGION_MAX_Y_MM = 49.95
 
@@ -633,19 +632,6 @@ def main() -> None:
     add_edge_segment(board, (39, 66.0), (61, 66.0))
     add_edge_arc(board, (61, 66.0), (61.707107, 65.707107), (62, 65.0))
     add_edge_segment(board, (62, 65.0), (62, 49.95))
-
-    # Manufacturing/mechanical note only: with a 0.8 mm PCB, add a 0.6 mm
-    # nonconductive stiffener on the non-contact side of the inserted region.
-    # That brings the spring-contact area to 1.4 mm while the component area
-    # stays below normal 2.1 mm full-size SD thickness.
-    add_rect_outline(
-        board,
-        pcbnew.User_1,
-        38.25,
-        INSERTED_REGION_MIN_Y_MM + 0.25,
-        61.75,
-        INSERTED_REGION_MAX_Y_MM - 0.25,
-    )
 
     # RP2350A placeholder footprint. Final symbol/part selection still needs
     # schematic work, but this is the right package class for first placement.
